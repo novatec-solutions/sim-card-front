@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "migracion-sim-front": "apps/migracion-sim-front",
+    "migracion-sim-front-e2e": "apps/migracion-sim-front-e2e"
+  }
+}

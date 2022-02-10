@@ -1,0 +1,28 @@
+{
+  "root": "apps/migracion-sim-front-e2e",
+  "sourceRoot": "apps/migracion-sim-front-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/migracion-sim-front-e2e/cypress.json",
+        "devServerTarget": "migracion-sim-front:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "migracion-sim-front:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/migracion-sim-front-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["migracion-sim-front"]
+}
