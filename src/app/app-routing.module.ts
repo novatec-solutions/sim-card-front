@@ -5,22 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule)
-  },
-  {
-    path: 'pin',
-    loadChildren: () =>
       import('./modules/pin/pin.module').then((m) => m.PinModule),
-  },
-  {
-    path: 'cuenta',
-    loadChildren: () =>
-      import('./modules/account/account.module').then((m) => m.AccountModule),
-  },
-  {
-    path: 'soporte',
-    loadChildren: () =>
-      import('./modules/failure-support/failure-support.module').then((m) => m.FailureSupportModule),
   },
   { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
