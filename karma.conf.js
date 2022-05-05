@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/fallas-masivas-front'),
+      dir: require('path').join(__dirname, './coverage/sim-masivas-front'),
       subdir: '.',
       reporters: [
         { type: 'html' },

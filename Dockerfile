@@ -13,7 +13,7 @@ RUN npm ci && npm run build
 
 RUN rm -rf /usr/share/nginx/html/*
 
-RUN cp -r /app/dist/fallas-masivas-front/* /usr/share/nginx/html
+RUN cp -r /app/dist/sim-masivas-front/* /usr/share/nginx/html
 
 EXPOSE 8080
 
