@@ -27,43 +27,7 @@ export class MigrationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.generatePin(true);
-  }
-
-  generatePin(ini:boolean = false){
-    const param = {
-      "documentClient" : localStorage.getItem('document'),
-      "contactData" : this.contact.contact,
-      "contactType" : this.contact.type
-    };
-
-    this.PinService.generar_pin(param).subscribe((res: { error: number; }) => {
-      if(res.error == 0 && !ini){
-        const data = {icon: "info", text: "Pin Generado satisfactoriamente",
-        redText: "Aceptar", redClass:"btn bg-red"};
-        this.showMessage(data);
-      }
-    });
-  }
-
-  validatePin(){
-    const form = this.pinForm.value;
-    const pinNumber = `${form.pin1}${form.pin2}${form.pin3}${form.pin4}`;
-
-    const param = {
-      "documentClient": localStorage.getItem('document'),
-      "pinNumber": pinNumber
-    };
-
-    this.PinService.validar_pin(param).subscribe((res: { error: number; response: { description: any; }; }) => {
-      if(res.error > 0){
-        const data = {icon: "info", text: res.response.description,
-          grayText: "Finalizar", redText: "Atras", grayClass:"btn bg-dark", redClass:"btn bg-red"};
-        this.showMessage(data);
-      }else{
-        this.router.navigate(['/cuenta']);
-      }
-    });
+    //this.showMessage("Herman Andres");
   }
 
   showMessage(info: any){

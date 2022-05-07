@@ -1,0 +1,30 @@
+<svg id="Íconos_-_Claro_-_Prepago" data-name="Íconos - Claro - Prepago" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <rect id="Rectángulo_206" data-name="Rectángulo 206" width="42" height="42" fill="none"/>
+  <circle id="Oval" cx="13.966" cy="13.966" r="13.966" transform="translate(11 6.305)" fill="#e8e8e9"/>
+  <g id="Group" transform="translate(3 2.574)">
+    <path id="Path" d="M20.043,5.224V3.838a2.822,2.822,0,0,0-2.772-2.772H3.412A2.822,2.822,0,0,0,.64,3.838V5.224Z" fill="#ef3829"/>
+    <path id="Shape" d="M20.683,5.864H0V3.838A3.368,3.368,0,0,1,3.412.426H17.271a3.368,3.368,0,0,1,3.412,3.412ZM1.279,4.584H19.3V3.838a2.138,2.138,0,0,0-2.132-2.132H3.3A2.138,2.138,0,0,0,1.173,3.838l.107.746Z"/>
+  </g>
+  <g id="Group-2" data-name="Group" transform="translate(3 31.359)">
+    <path id="Path-2" data-name="Path" d="M.64.96V3.731A3.071,3.071,0,0,0,3.412,6.5H17.271a3.17,3.17,0,0,0,2.772-2.772V.96Z" fill="#ef3829"/>
+    <path id="Shape-2" data-name="Shape" d="M17.271,7.25H3.412A3.669,3.669,0,0,1,0,3.838V.426H20.683V3.838A3.959,3.959,0,0,1,17.271,7.25ZM1.279,1.6V3.731A2.488,2.488,0,0,0,3.412,5.864H17.271A2.488,2.488,0,0,0,19.4,3.731V1.6Z"/>
+  </g>
+  <rect id="Rectangle" width="19.403" height="24.521" transform="translate(3.64 7.799)" fill="#fff"/>
+  <path id="Shape-3" data-name="Shape" d="M20.683,30.516H0V4.716H20.683Zm-19.4-1.279H19.3V6H1.279Z" transform="translate(3 2.441)"/>
+  <rect id="Rectangle-2" data-name="Rectangle" width="3.412" height="1.279" transform="translate(11.955 34.451)"/>
+  <g id="Group-3" data-name="Group" transform="translate(14 10.037)">
+    <g id="Grupo_466" data-name="Grupo 466">
+      <circle id="Oval-2" data-name="Oval" cx="9.062" cy="9.062" r="9.062" transform="translate(1.493 1.173)" fill="#fff"/>
+      <path id="Shape-4" data-name="Shape" d="M10.554,19.936a9.7,9.7,0,1,1,9.7-9.7A9.737,9.737,0,0,1,10.554,19.936Zm0-18.124a8.422,8.422,0,1,0,8.422,8.422A8.44,8.44,0,0,0,10.554,1.812Z"/>
+    </g>
+    <path id="Path-3" data-name="Path" d="M11.3,14.392H9.915a2.024,2.024,0,0,1-2.026-2.026H9.169a.729.729,0,0,0,.746.746H11.3a.729.729,0,0,0,.746-.746V11.94a.8.8,0,0,0-.533-.746l-2.239-.746A2.049,2.049,0,0,1,7.889,8.529V8.1A2.024,2.024,0,0,1,9.915,6.077H11.3A2.024,2.024,0,0,1,13.326,8.1H12.047a.729.729,0,0,0-.746-.746H9.915a.729.729,0,0,0-.746.746v.426a.8.8,0,0,0,.533.746l2.239.746a2.049,2.049,0,0,1,1.386,1.919v.426A2.1,2.1,0,0,1,11.3,14.392Z"/>
+    <rect id="Rectangle-3" data-name="Rectangle" width="1.279" height="2.132" transform="translate(9.915 4.584)"/>
+    <path id="Rectangle-4" data-name="Rectangle" d="M0,0H1.279V2.132H0Z" transform="translate(9.915 13.753)"/>
+  </g>
+  <rect id="Rectangle-5" data-name="Rectangle" width="1.279" height="4.584" transform="translate(35.932 9.824)" fill="#bbbec1"/>
+  <rect id="Rectangle-6" data-name="Rectangle" width="4.584" height="1.279" transform="translate(34.333 11.422)" fill="#bbbec1"/>
+  <g id="Grupo_13475" data-name="Grupo 13475" transform="translate(0.667 -0.824)">
+    <rect id="Rectangle-7" data-name="Rectangle" width="1.279" height="4.584" transform="translate(27.932 3.824)" fill="#bbbec1"/>
+    <rect id="Rectangle-8" data-name="Rectangle" width="4.584" height="1.279" transform="translate(26.333 5.422)" fill="#bbbec1"/>
+  </g>
+</svg>

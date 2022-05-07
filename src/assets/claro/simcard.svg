@@ -1,0 +1,27 @@
+<svg id="Íconos_-_Claro_-_SIM_card" data-name="Íconos - Claro - SIM card" xmlns="http://www.w3.org/2000/svg" width="48.422" height="48.422" viewBox="0 0 48.422 48.422">
+  <rect id="Rectángulo_259" data-name="Rectángulo 259" width="48.422" height="48.422" fill="none"/>
+  <circle id="Oval" cx="17.403" cy="17.403" r="17.403" transform="translate(6.565 6.688)" fill="#e8e8e9"/>
+  <path id="Shape" d="M21.905,43.81a20.142,20.142,0,0,1-3.894-.365l.243-1.339a18.574,18.574,0,0,0,3.651.365,20.24,20.24,0,0,0,14.482-5.963l1.1.974h0A22.641,22.641,0,0,1,21.905,43.81ZM6.45,37.361h0A21.732,21.732,0,0,1,0,21.905a20.142,20.142,0,0,1,.365-3.894l1.339.243a18.574,18.574,0,0,0-.365,3.651A20.753,20.753,0,0,0,7.3,36.387Zm37-11.561-1.339-.243a18.574,18.574,0,0,0,.365-3.651A20.753,20.753,0,0,0,36.509,7.423l.974-.974h0A22.131,22.131,0,0,1,43.81,21.905,20.142,20.142,0,0,1,43.445,25.8ZM7.423,7.423l-1.1-.974h0A22.227,22.227,0,0,1,21.905,0,20.142,20.142,0,0,1,25.8.365L25.556,1.7a18.574,18.574,0,0,0-3.651-.365A20.873,20.873,0,0,0,7.423,7.423Z" transform="translate(2.306 2.306)" fill="#e8e8e9"/>
+  <g id="Group" transform="translate(13.745 10.459)">
+    <g id="Grupo_531" data-name="Grupo 531" transform="translate(0)">
+      <path id="Path" d="M15.958,1.444H2.206a1.091,1.091,0,0,0-1.1,1.1V26.27a1.091,1.091,0,0,0,1.1,1.1H19.122a1.091,1.091,0,0,0,1.1-1.1V5.825Z" transform="translate(-0.381 -0.714)" fill="#ef3829"/>
+      <path id="Shape-2" data-name="Shape" d="M19.186,28.038H2.27A1.872,1.872,0,0,1,.444,26.212V2.6A1.872,1.872,0,0,1,2.27.778H16.387l4.624,4.868V26.334A1.85,1.85,0,0,1,19.186,28.038ZM2.27,2.238A.323.323,0,0,0,1.9,2.6V26.334a.323.323,0,0,0,.365.365H19.186a.323.323,0,0,0,.365-.365V6.254L15.778,2.238Z" transform="translate(-0.444 -0.778)"/>
+    </g>
+    <g id="Grupo_532" data-name="Grupo 532" transform="translate(2.921 13.63)">
+      <path id="Path-2" data-name="Path" d="M14.577,9.672H2.164a.575.575,0,0,1-.608-.608V1.275A.575.575,0,0,1,2.164.667H14.577a.575.575,0,0,1,.608.608v7.91A.557.557,0,0,1,14.577,9.672Z" transform="translate(-0.825 0.064)" fill="#fff"/>
+      <path id="Shape-3" data-name="Shape" d="M14.641,10.466H2.228A1.351,1.351,0,0,1,.889,9.127V1.339A1.351,1.351,0,0,1,2.228,0H14.641a1.351,1.351,0,0,1,1.339,1.339v7.91A1.333,1.333,0,0,1,14.641,10.466ZM2.349,9.127h12.17V1.46H2.349Z" transform="translate(-0.889)"/>
+    </g>
+    <g id="Grupo_533" data-name="Grupo 533" transform="translate(6.328 13.63)">
+      <rect id="Rectangle" width="6.815" height="9.127" transform="translate(0.73 0.73)" fill="#fff"/>
+      <path id="Shape-4" data-name="Shape" d="M8.942,10.466H.667V0H8.942ZM2.127,9.127H7.482V1.46H2.127V9.127Z" transform="translate(-0.667)"/>
+    </g>
+    <g id="Grupo_534" data-name="Grupo 534" transform="translate(3.407 18.376)">
+      <line id="Path-3" data-name="Path" x1="3.407" transform="translate(0 0.73)" fill="none"/>
+      <rect id="Rectangle-2" data-name="Rectangle" width="3.407" height="1.46" transform="translate(0)"/>
+    </g>
+    <g id="Grupo_535" data-name="Grupo 535" transform="translate(13.63 18.376)">
+      <line id="Path-4" data-name="Path" x1="3.407" transform="translate(0 0.73)" fill="none"/>
+      <rect id="Rectangle-3" data-name="Rectangle" width="3.407" height="1.46" transform="translate(0)"/>
+    </g>
+  </g>
+</svg>

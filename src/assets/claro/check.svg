@@ -1,0 +1,22 @@
+<svg id="Íconos_-_Claro_-_Correcto" data-name="Íconos - Claro - Correcto" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <rect id="Rectángulo_289" data-name="Rectángulo 289" width="42" height="42" fill="none"/>
+  <g id="Iconos" transform="translate(3 3)">
+    <g id="Artboard" transform="translate(0 0)">
+      <g id="ico_Error" transform="translate(0)">
+        <g id="ico_bloqueo" transform="translate(0)">
+          <path id="Shape" d="M18.719,30.3A11.541,11.541,0,1,1,30.236,18.758,11.6,11.6,0,0,1,18.719,30.3Zm0-21.977A10.437,10.437,0,1,0,29.134,18.758,10.483,10.483,0,0,0,18.719,8.322Z" transform="translate(-0.76 -0.695)"/>
+          <g id="Group" transform="translate(0)">
+            <path id="Path" d="M37.946,20.071l-1.1-.1c0-.4.1-.8.1-1.2A17.07,17.07,0,0,0,20.722,1.1V0A18.114,18.114,0,0,1,38.047,18.766C38.047,19.167,37.946,19.669,37.946,20.071Z" transform="translate(-2.061)" fill="#bcc0c4"/>
+            <path id="Path-2" data-name="Path" d="M2.11,26.653a16.987,16.987,0,0,1-2-9.132A18.053,18.053,0,0,1,10.923,1.666l.5,1A16.725,16.725,0,0,0,1.209,17.521a16.68,16.68,0,0,0,1.9,8.53Z" transform="translate(-0.074 -0.16)" fill="#bcc0c4"/>
+            <path id="Path-3" data-name="Path" d="M18.815,39.024h-.7A17.745,17.745,0,0,1,8.2,35.511l.6-.9a17.178,17.178,0,0,0,9.313,3.312,17.087,17.087,0,0,0,14.921-7.828l1,.6A18.292,18.292,0,0,1,18.815,39.024Z" transform="translate(-0.856 -2.897)" fill="#bcc0c4"/>
+            <path id="Path-4" data-name="Path" d="M28.636,31.913l-.6-1c.3-.2.5-.3.8-.5a13.829,13.829,0,0,0,3.2-19.268l.9-.7a14.981,14.981,0,0,1-3.505,20.873A5.556,5.556,0,0,1,28.636,31.913Z" transform="translate(-2.765 -1.005)" fill="#bcc0c4"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="Group-2" data-name="Group" transform="translate(14.749 15.652)">
+    <path id="Path-5" data-name="Path" d="M2.477,5.333l2.13,2.142L10.1,1.5,11.78,3.078,4.606,10.745.8,6.912Z" transform="translate(0.101 -0.373)" fill="#ef3829"/>
+    <path id="Shape-2" data-name="Shape" d="M4.82,11.888,0,7.039,2.578,4.446l2.13,2.142L10.2.5l2.578,2.593ZM1.793,7.039,4.708,9.971l6.277-6.765L10.2,2.417,4.708,8.505,2.466,6.25Z" transform="translate(0 -0.5)"/>
+  </g>
+</svg>

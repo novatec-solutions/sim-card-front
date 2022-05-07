@@ -7,9 +7,11 @@ import { MaterialModule } from 'src/app/core/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaxLengthDirective } from './directive/max-length.directive';
+import { GeneratePinComponent } from './pages/generate-pin/generate-pin.component';
 
 @NgModule({
   declarations: [
+    GeneratePinComponent,
     ValidatePinComponent,
     MaxLengthDirective
   ],

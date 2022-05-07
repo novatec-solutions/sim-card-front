@@ -10,3 +10,12 @@ $light-gray: #b9b9b9;
 
 $black-text: #222222;
 $gray-border: #cccccc;
+
+
+@mixin icon-size($size) {
+  mat-icon {
+    font-size: $size;
+    width: $size;
+    height: $size;
+  }
+}

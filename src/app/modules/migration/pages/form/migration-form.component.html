@@ -7,7 +7,7 @@
       </h4>
       <div class="migration-form__subtitle">
         <p>
-          <a href="">¿Todavía no tienes una? Aquí te explicamos</a>
+          <a routerLink="/migration/help">¿Todavía no tienes una? Aquí te explicamos</a>
         </p>
       </div>
       <div class="migration-form__control">
@@ -18,33 +18,7 @@
 
     <div class="migration-form__fieldset">
       <h4 class="migration-form__title">
-        <svg id="Íconos_-_Claro_-_SIM_card" data-name="Íconos - Claro - SIM card" xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 39 39">
-          <rect id="Rectángulo_259" data-name="Rectángulo 259" width="39" height="39" fill="none"/>
-          <circle id="Oval" cx="14.016" cy="14.016" r="14.016" transform="translate(5.288 5.386)" fill="#e8e8e9"/>
-          <path id="Shape" d="M17.643,35.286a16.223,16.223,0,0,1-3.137-.294l.2-1.078a14.96,14.96,0,0,0,2.94.294,16.3,16.3,0,0,0,11.664-4.8l.882.784h0A18.236,18.236,0,0,1,17.643,35.286ZM5.195,30.091h0A17.5,17.5,0,0,1,0,17.643a16.223,16.223,0,0,1,.294-3.137l1.078.2a14.96,14.96,0,0,0-.294,2.94,16.715,16.715,0,0,0,4.8,11.664Zm29.8-9.312-1.078-.2a14.96,14.96,0,0,0,.294-2.94A16.715,16.715,0,0,0,29.4,5.979l.784-.784h0a17.825,17.825,0,0,1,5.1,12.448A16.223,16.223,0,0,1,34.992,20.779ZM5.979,5.979,5.1,5.195h0A17.9,17.9,0,0,1,17.643,0a16.223,16.223,0,0,1,3.137.294l-.2,1.078a14.96,14.96,0,0,0-2.94-.294A16.811,16.811,0,0,0,5.979,5.979Z" transform="translate(1.857 1.857)" fill="#e8e8e9"/>
-          <g id="Group" transform="translate(11.07 8.424)">
-            <g id="Grupo_531" data-name="Grupo 531" transform="translate(0)">
-              <path id="Path" d="M13.069,1.444H1.993a.878.878,0,0,0-.882.882V21.44a.878.878,0,0,0,.882.882H15.617a.878.878,0,0,0,.882-.882V4.973Z" transform="translate(-0.523 -0.856)" fill="#ef3829"/>
-              <path id="Shape-2" data-name="Shape" d="M15.539,22.733H1.915a1.507,1.507,0,0,1-1.47-1.47V2.248A1.507,1.507,0,0,1,1.915.778h11.37L17.009,4.7V21.361A1.49,1.49,0,0,1,15.539,22.733ZM1.915,1.954a.26.26,0,0,0-.294.294V21.361a.26.26,0,0,0,.294.294H15.539a.26.26,0,0,0,.294-.294V5.188L12.794,1.954Z" transform="translate(-0.444 -0.778)"/>
-            </g>
-            <g id="Grupo_532" data-name="Grupo 532" transform="translate(2.352 10.978)">
-              <path id="Path-2" data-name="Path" d="M12.043,7.92h-10a.463.463,0,0,1-.49-.49V1.157a.463.463,0,0,1,.49-.49h10a.463.463,0,0,1,.49.49V7.528A.448.448,0,0,1,12.043,7.92Z" transform="translate(-0.967 -0.079)" fill="#fff"/>
-              <path id="Shape-3" data-name="Shape" d="M11.965,8.429h-10A1.088,1.088,0,0,1,.889,7.351V1.078A1.088,1.088,0,0,1,1.967,0h10a1.088,1.088,0,0,1,1.078,1.078V7.449A1.074,1.074,0,0,1,11.965,8.429Zm-9.9-1.078h9.8V1.176h-9.8Z" transform="translate(-0.889)"/>
-            </g>
-            <g id="Grupo_533" data-name="Grupo 533" transform="translate(5.097 10.978)">
-              <rect id="Rectangle" width="5.489" height="7.351" transform="translate(0.588 0.588)" fill="#fff"/>
-              <path id="Shape-4" data-name="Shape" d="M7.332,8.429H.667V0H7.332ZM1.843,7.351H6.156V1.176H1.843V7.351Z" transform="translate(-0.667)"/>
-            </g>
-            <g id="Grupo_534" data-name="Grupo 534" transform="translate(2.744 14.8)">
-              <line id="Path-3" data-name="Path" x1="2.744" transform="translate(0 0.588)" fill="none"/>
-              <rect id="Rectangle-2" data-name="Rectangle" width="2.744" height="1.176" transform="translate(0)"/>
-            </g>
-            <g id="Grupo_535" data-name="Grupo 535" transform="translate(10.978 14.8)">
-              <line id="Path-4" data-name="Path" x1="2.744" transform="translate(0 0.588)" fill="none"/>
-              <rect id="Rectangle-3" data-name="Rectangle" width="2.744" height="1.176" transform="translate(0)"/>
-            </g>
-          </g>
-        </svg>
+        <mat-icon svgIcon="simcard"></mat-icon>
         <span>Número de serial de la SIM 4G</span>
       </h4>
       <div class="migration-form__subtitle">
@@ -67,7 +41,7 @@
        <p>¿No sabes qué es esto?</p>
        <p>¿Quieres saber cómo funciona?</p>
       </div>
-      <app-button class="migration-form__button">
+      <app-button class="migration-form__button" routerLink="/migration/help">
         Saber más
       </app-button>
     </div>

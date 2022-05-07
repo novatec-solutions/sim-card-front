@@ -4,8 +4,8 @@
   width: var(--button-width, 100%);
   max-width:var(--button-max-width, inherit);
   border-radius: var(--button-radius, 26px);
-  background-color: var(--primary-color, red);
-  outline: 1px solid var(--color, red);
+  background-color: var(--primary-color, $red);
+  outline: 1px solid var(--color, $red);
   color: var(--color, $white);
   border: none;
   font-size: 13px;

@@ -1,0 +1,92 @@
+@import "../../../../../assets/theme/variables.scss";
+
+
+.migration-form {
+  $form: &;
+
+  &__title {
+    font-size: 24px;
+    color: #5E5E5E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__subtitle {
+    p {
+      font-size: 18px;
+      a {
+        color: #187385;
+        text-decoration: underline;
+      }
+      span {
+        color: #d9291c;
+      }
+    }
+  }
+
+  &__fieldset {
+    margin: 4rem 0 1rem;
+  }
+
+  &__button {
+    --button-width: 300px;
+    --button-radius: 9px;
+    --primary-color: #d9291c;
+    --button-max-width: 160px;
+  }
+
+  &__help {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+    padding: 2rem 0rem;
+    margin: 2rem auto;
+    gap: 2rem;
+
+    #{$form}__button {
+      --primary-color: #fff;
+      --color:#187385
+    }
+
+    .help_links {
+      color: #5E5E5E;
+      text-align: left;
+    }
+
+    //custom
+    &-item {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-top: 1px solid #cccccc;
+      padding: 1rem 0;
+
+      &--image {
+        @include icon-size(38px);
+      }
+
+      &--content {
+        text-align: left;
+        line-height: 17px;
+        color: #5E5E5E;
+        b {
+          color: #d9291c;
+        }
+      }
+
+    }
+
+  }
+
+  // Custom
+  &__help-box {
+    background: #FAFAFA 0% 0% no-repeat padding-box;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+}

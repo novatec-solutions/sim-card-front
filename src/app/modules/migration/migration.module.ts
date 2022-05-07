@@ -7,10 +7,12 @@ import { MaterialModule } from 'src/app/core/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaxLengthDirective } from './directive/max-length.directive';
+import { MigrationHelpComponent } from './pages/help/migration-help.component';
 
 @NgModule({
   declarations: [
     MigrationFormComponent,
+    MigrationHelpComponent,
     MaxLengthDirective
   ],
   imports: [
