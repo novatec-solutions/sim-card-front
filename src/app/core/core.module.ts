@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MessagesComponent } from './organisms/messages/messages.component';
 import { MaterialModule } from './material/material.module';
 import { ButtonComponent } from './atoms/button/button.component';
+import { DialogComponent } from './organisms/dialog/dialog.component';
 
 @NgModule({
   declarations: [
-    MessagesComponent,
+    DialogComponent,
     ButtonComponent
   ],
   imports: [
@@ -14,7 +14,8 @@ import { ButtonComponent } from './atoms/button/button.component';
     MaterialModule
   ],
   exports:[
-    ButtonComponent
+    ButtonComponent,
+    DialogComponent
   ]
 })
 export class CoreModule { }

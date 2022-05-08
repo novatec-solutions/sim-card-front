@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { MessagesComponent } from 'src/app/core/organisms/messages/messages.component';
 import { PinService } from '../../services/pin.service';
+import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 
 @Component({
   selector: 'app-validate-pin',
@@ -67,7 +67,7 @@ export class ValidatePinComponent implements OnInit {
   }
 
   showMessage(info: any){
-    const dialogRef = this.dialog.open(MessagesComponent, {
+    const dialogRef = this.dialog.open(DialogComponent, {
       width: '350px',
       data: info
     });

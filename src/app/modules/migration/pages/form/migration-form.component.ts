@@ -1,40 +1,81 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnChanges } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { MessagesComponent } from 'src/app/core/organisms/messages/messages.component';
-import { PinService } from '../../services/pin.service';
+import { REGEX_PHONE_NUMBER, REGEX_SERIAL_NUMBER } from 'src/app/core/constants/validations';
+import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
+import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
+import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
+import { DialogButton } from '../../../../core/enums/dialog-button.enum';
 
 @Component({
   selector: 'app-migration-form',
   templateUrl: './migration-form.component.html',
   styleUrls: ['./migration-form.component.scss']
 })
-export class MigrationFormComponent implements OnInit {
-  pinForm!: FormGroup;
-  contact = JSON.parse(localStorage.getItem('contact') as any);
+export class MigrationFormComponent {
+  migrationForm!: FormGroup;
 
-  constructor(public fb: FormBuilder,
-    private router: Router,
+  get currentPhoneNumber() {
+    return this.migrationForm.get("currentPhoneNumber");
+  }
+
+  get serialSimlastNumbers() {
+    return this.migrationForm.get("serialSimlastNumbers");
+  }
+
+  constructor(
+    public fb: FormBuilder,
     public dialog: MatDialog,
-    private PinService: PinService) {
-    this.pinForm = this.fb.group({
-      pin1: ['', [Validators.required]],
-      pin2: ['', [Validators.required]],
-      pin3: ['', [Validators.required]],
-      pin4: ['', [Validators.required]]
+    private router: Router) {
+    this.migrationForm = new FormGroup({
+      currentPhoneNumber: new FormControl('', [
+        Validators.required,
+        Validators.pattern(REGEX_PHONE_NUMBER)
+      ]),
+      serialSimlastNumbers: new FormControl('', [
+        Validators.required,
+        Validators.pattern(REGEX_SERIAL_NUMBER)
+      ]),
+    });
+  }
+
+  continueToNextStep() {
+    if(this.migrationForm.valid){
+      const dialogInstance = this.showMessage<ModalDialogConfig>({
+        icon: "email",
+        message: `Por favor confirma que el serial que ingresaste está <span>correcto.</span>`,
+        content: `${this.serialSimlastNumbers?.value}`,
+        actions: [
+          {
+            key: DialogButton.CANCEL,
+            color: DialogButtonTheme.SECONDARY,
+            label: 'Editar',
+          },
+          {
+            key: DialogButton.CONFIRM,
+            color: DialogButtonTheme.PRIMARY,
+            label: 'Confirmar',
+          },
+        ]
       });
+      this.bindDialogEvents(dialogInstance);
+    }
   }
 
-  ngOnInit(): void {
-    //this.showMessage("Herman Andres");
+  bindDialogEvents(dialogInstance: MatDialogRef<DialogComponent, any>){
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CONFIRM){
+        this.router.navigate(['/pin/generate']);
+      }
+      dialogInstance.close();
+    });
   }
 
-  showMessage(info: any){
-    const dialogRef = this.dialog.open(MessagesComponent, {
+  showMessage<T>(info: T){
+    return this.dialog.open(DialogComponent, {
       width: '350px',
       data: info
     });
-    dialogRef.afterClosed();
   }
 }

@@ -12,7 +12,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/pin/pin.module').then((m) => m.PinModule),
   },
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '/migration'
+  }
 ];
 
 @NgModule({

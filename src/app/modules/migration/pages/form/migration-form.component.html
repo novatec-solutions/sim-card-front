@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="text-box migration-form">
+  <form class="text-box migration-form" [formGroup]="migrationForm" (ngSubmit)="continueToNextStep()">
 
     <div class="migration-form__fieldset">
       <h4 class="migration-form__title">
@@ -10,9 +10,18 @@
           <a routerLink="/migration/help">¿Todavía no tienes una? Aquí te explicamos</a>
         </p>
       </div>
-      <div class="migration-form__control">
+      <div class="migration-form__control" [ngClass]="{
+        'control-error' : currentPhoneNumber?.errors?.['pattern'] || false
+      }">
         <label for="">Número de celular actual *</label>
-        <input type="text" name="" placeholder="Escribe tu número de celular actual">
+        <input
+          type="text"
+          mask="0000000000"
+          formControlName="currentPhoneNumber"
+          placeholder="Escribe tu número de celular actual">
+          <span *ngIf="currentPhoneNumber?.errors?.['pattern']">
+            Campo obligatorio, debe iniciar en 3 y contener 10 dígitos
+          </span>
       </div>
     </div>
 
@@ -25,23 +34,39 @@
         <p>Para continuar, confirma la siguiente información de tu <span>SIM Card 4G.</span></p>
       </div>
 
-      <div class="migration-form__control">
+      <div class="migration-form__control" [ngClass]="{
+        'control-error' : serialSimlastNumbers?.errors?.['pattern'] || false
+      }">
         <label for="">Escribe los últimos 12 dígitos de serie de la SIM 4G:</label>
         <div class="input-prefix">
           <strong> 57101 </strong>
-          <input type="text" name="">
+          <input
+            type="text"
+            mask="000000000000"
+            formControlName="serialSimlastNumbers">
+            <span *ngIf="serialSimlastNumbers?.errors?.['pattern']">
+              Campo obligatorio, escribe los 12 dígitos del serial ubicados a un logo de Claro 4G sobre la SIM
+            </span>
         </div>
       </div>
     </div>
 
-    <app-button class="migration-form__button">Validar información</app-button>
+    <app-button
+      [disabled]="!migrationForm.valid"
+      type="submit"
+      class="migration-form__button">
+      Continuar
+    </app-button>
 
     <div class="migration-form__help">
       <div class="help_links">
        <p>¿No sabes qué es esto?</p>
        <p>¿Quieres saber cómo funciona?</p>
       </div>
-      <app-button class="migration-form__button" routerLink="/migration/help">
+      <app-button
+        class="migration-form__button"
+        type="button"
+        link="/migration/help">
         Saber más
       </app-button>
     </div>

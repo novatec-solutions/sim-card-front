@@ -1,26 +1,41 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, Input, SimpleChange, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnChanges {
 
   @Input()
-  buttonClass:string = '';
+  buttonClass: string = '';
 
   @Input()
-  buttonDisabled:string = "false";
+  type: string = 'button';
 
+  @Input()
+  link: string = '';
+
+  @Output()
+  buttonPressed = new EventEmitter<MouseEvent>();
+
+  @Input()
   disabled:boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  onClick(event: MouseEvent) {
+    this.buttonPressed.emit(event);
+    if(this.link) {
+      this.router.navigate([this.link]);
+    }
+  }
 
-  ngOnChanges(changes:SimpleChange){
-    this.disabled =  this.buttonDisabled.toLowerCase() == 'true' ? true : false;
+  ngOnChanges(simpleChange: { disabled: SimpleChange }) {
+    if(simpleChange?.disabled?.currentValue){
+      this.disabled = simpleChange.disabled.currentValue;
+    }
   }
 
 }

@@ -7,10 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: MigrationFormComponent,
+    data: { animation: 'MigrationFormComponent' }
   },
   {
     path: 'help',
     component: MigrationHelpComponent,
+    data: { animation: 'MigrationHelpComponent' }
   }
 ];
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { MessagesComponent } from 'src/app/core/organisms/messages/messages.component';
 import { PinService } from '../../services/pin.service';
 
 @Component({

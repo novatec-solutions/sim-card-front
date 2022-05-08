@@ -48,6 +48,19 @@
       font-size: 14px;
     }
 
+    &.control-error {
+      input {
+        border: 1px solid $red;
+      }
+      span {
+        width: 100%;
+        color: $red;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
   }
 
   &__button {
@@ -68,7 +81,8 @@
 
     #{$form}__button {
       --primary-color: #fff;
-      --color:#187385
+      --color: #187385;
+      --border-color: #187385;
     }
 
     .help_links {

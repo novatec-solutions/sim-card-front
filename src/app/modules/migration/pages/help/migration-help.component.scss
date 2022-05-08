@@ -1,6 +1,5 @@
 @import "../../../../../assets/theme/variables.scss";
 
-
 .migration-form {
   $form: &;
 
@@ -10,19 +9,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    margin: 0.4rem 0;
   }
 
   &__subtitle {
     p {
       font-size: 18px;
-      a {
-        color: #187385;
-        text-decoration: underline;
-      }
-      span {
-        color: #d9291c;
-      }
+      color: #5E5E5E;
+    }
+  }
+
+  &__foot {
+    $padding-top: 2rem;
+
+    @include icon-size(40px);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #5E5E5E;
+    justify-content: center;
+    font-size: 18px;
+    padding: $padding-top 0;
+    position: relative;
+
+    &::before {
+      content: "";
+      background: #CCCCCC;
+      position: absolute;
+      width: 300px;
+      height: 1px;
+      top: $padding-top - 0.2rem;
     }
   }
 
@@ -33,7 +49,6 @@
   &__button {
     --button-width: 300px;
     --button-radius: 9px;
-    --primary-color: #d9291c;
     --button-max-width: 160px;
   }
 
@@ -48,7 +63,8 @@
 
     #{$form}__button {
       --primary-color: #fff;
-      --color:#187385
+      --color: #187385;
+      --border-color: #187385;
     }
 
     .help_links {
@@ -56,7 +72,6 @@
       text-align: left;
     }
 
-    //custom
     &-item {
       font-size: 16px;
       display: flex;
@@ -79,14 +94,18 @@
       }
 
     }
-
   }
 
-  // Custom
   &__help-box {
     background: #FAFAFA 0% 0% no-repeat padding-box;
     max-width: 30rem;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1rem 1.5rem;
+
+    h3 {
+      font-size: 18px;
+      color: #5E5E5E;
+      font-weight: bold;
+    }
   }
 }
