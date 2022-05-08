@@ -6,6 +6,7 @@ import { REGEX_PHONE_NUMBER, REGEX_SERIAL_NUMBER } from 'src/app/core/constants/
 import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
 import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { DialogButton } from '../../../../core/enums/dialog-button.enum';
 
 @Component({
@@ -27,7 +28,9 @@ export class MigrationFormComponent {
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
+    public loaderService: LoadingService,
     private router: Router) {
+
     this.migrationForm = new FormGroup({
       currentPhoneNumber: new FormControl('', [
         Validators.required,
@@ -38,6 +41,7 @@ export class MigrationFormComponent {
         Validators.pattern(REGEX_SERIAL_NUMBER)
       ]),
     });
+
   }
 
   continueToNextStep() {
@@ -59,6 +63,7 @@ export class MigrationFormComponent {
           },
         ]
       });
+
       this.bindDialogEvents(dialogInstance);
     }
   }

@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { EncryptHttpInterceptor } from './core/interceptors/encrypt-http.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+    NgxLoadingModule.forRoot({}),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

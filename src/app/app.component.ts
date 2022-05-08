@@ -3,6 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChildrenOutletContexts } from '@angular/router';
 import { slideInAnimation } from './animations.route';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -46,9 +47,10 @@ export class AppComponent {
   ];
 
   constructor(
+    public loaderService: LoadingService,
     private matIconRegistry: MatIconRegistry,
     private domSanitzer: DomSanitizer,
-    private contexts: ChildrenOutletContexts
+    private contexts: ChildrenOutletContexts,
   ){
     this.ICONS_LIST.forEach(icon => {
       this.matIconRegistry.addSvgIcon(
