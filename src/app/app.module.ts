@@ -10,6 +10,13 @@ import { EncryptHttpInterceptor } from './core/interceptors/encrypt-http.interce
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgxLoadingModule } from 'ngx-loading';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+};
 
 @NgModule({
   declarations: [
@@ -22,6 +29,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     HttpClientModule,
     CoreModule,
     NgxLoadingModule.forRoot({}),
+    NgxMaskModule.forRoot(maskConfigFunction),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

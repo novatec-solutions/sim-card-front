@@ -14,7 +14,7 @@ import { LoadingService } from 'src/app/core/services/loading.service';
   templateUrl: './validate-pin.component.html',
   styleUrls: ['./validate-pin.component.scss']
 })
-export class ValidatePinComponent implements OnInit {
+export class ValidatePinComponent {
   pinForm!: FormGroup;
   contact = JSON.parse(localStorage.getItem('contact') as any);
 
@@ -32,10 +32,6 @@ export class ValidatePinComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.showSuccessDialog();
-  }
-
   showSuccessDialog(){
     const dialogInstance = this.showMessage<ModalDialogConfig>({
       icon: "simok",
@@ -46,6 +42,7 @@ export class ValidatePinComponent implements OnInit {
           key: DialogButton.CONFIRM,
           color: DialogButtonTheme.PRIMARY,
           label: 'Aceptar',
+          type: 'button'
         }
       ]
     });
@@ -68,11 +65,13 @@ export class ValidatePinComponent implements OnInit {
           key: DialogButton.CANCEL,
           color: DialogButtonTheme.SECONDARY,
           label: 'Cancelar',
+          type: 'button'
         },
         {
           key: DialogButton.CONFIRM,
           color: DialogButtonTheme.PRIMARY,
           label: 'Volver a intentar',
+          type: 'button'
         },
       ]
     });
@@ -102,6 +101,9 @@ export class ValidatePinComponent implements OnInit {
   }
 
   validatePin(){
+    this.showSuccessDialog();
+    return;
+
     const form = this.pinForm.value;
     const pinNumber = `${form.pin1}${form.pin2}${form.pin3}${form.pin4}`;
 
@@ -124,6 +126,7 @@ export class ValidatePinComponent implements OnInit {
   showMessage<T>(info: T){
     return this.dialog.open(DialogComponent, {
       width: '350px',
+      disableClose: true,
       data: info
     });
   }

@@ -8,6 +8,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaxLengthDirective } from './directive/max-length.directive';
 import { GeneratePinComponent } from './pages/generate-pin/generate-pin.component';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+};
 
 @NgModule({
   declarations: [
@@ -21,7 +28,8 @@ import { GeneratePinComponent } from './pages/generate-pin/generate-pin.componen
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    NgxMaskModule.forRoot(maskConfigFunction),
   ]
 })
 export class PinModule { }

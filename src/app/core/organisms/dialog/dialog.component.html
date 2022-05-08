@@ -1,24 +1,42 @@
-<mat-dialog-content>
-  <div class="modal-dialog__content">
-    <div class="modal-dialog__content-icon">
-      <mat-icon [svgIcon]="data.icon || 'check'"></mat-icon>
+<form [formGroup]="dialogForm" (ngSubmit)="onFormSubmitted()">
+  <mat-dialog-content>
+    <div class="modal-dialog__content">
+      <div class="modal-dialog__content-icon">
+        <mat-icon [svgIcon]="data.icon || 'check'"></mat-icon>
+      </div>
+      <div class="modal-dialog__content-head" [innerHTML]="data?.message">
+      </div>
+      <div class="modal-dialog__content-info" *ngIf="data?.content">
+        {{ data?.content }}
+      </div>
     </div>
-    <div class="modal-dialog__content-head" [innerHTML]="data?.message">
+    <div class="modal-dialog__inputs" *ngIf="data?.inputs">
+      <ng-container *ngFor="let input of data.inputs">
+        <input
+          type="text"
+          formControlName="{{ input.key }}"
+          [mask]="input.mask"
+          class="modal-dialog__input">
+          <ng-container *ngIf="dialogForm.controls[input.key]?.errors?.['pattern']">
+            <span class="modal-dialog__input--error">
+              {{input?.errors?.['pattern'] }}
+            </span>
+          </ng-container>
+      </ng-container>
     </div>
-    <div class="modal-dialog__content-info" >
-      {{ data?.content }}
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <div class="modal-dialog__actions" [ngStyle]="buttonLayout">
+      <app-button
+        *ngFor="let button of data.actions"
+        class="modal-dialog__actions-buttons"
+        [ngClass]="['modal-dialog__actions-buttons--' + button.color]"
+        [disabled]="getStateDisableForm(button)"
+        [type]="button.type"
+        (buttonPressed)="onButtonPressed(button.key)"
+      >
+      {{ button.label }}
+    </app-button>
     </div>
   </div>
-</mat-dialog-content>
-<div mat-dialog-actions>
-  <div class="modal-dialog__actions" [ngStyle]="buttonLayout">
-    <app-button
-      *ngFor="let button of data.actions"
-      class="modal-dialog__actions-buttons"
-      [ngClass]="['modal-dialog__actions-buttons--' + button.color]"
-      (buttonPressed)="onButtonPressed(button.key)"
-    >
-    {{ button.label }}
-  </app-button>
-  </div>
-</div>
+</form>

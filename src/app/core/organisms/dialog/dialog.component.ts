@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogButton } from '../../enums/dialog-button.enum';
-import { ModalDialogConfig } from '../../interfaces/modal.config';
+import { DialogButtonActions, DialogInputs, ModalDialogConfig } from '../../interfaces/modal.config';
 
 @Component({
   selector: 'app-dialog',
@@ -10,6 +11,11 @@ import { ModalDialogConfig } from '../../interfaces/modal.config';
 })
 export class DialogComponent {
 
+  public dialogForm!: FormGroup;
+  private formControls: Record<string, FormControl> = {};
+  @Output() buttonPressed = new EventEmitter<DialogButton>();
+  @Output() formSubmitted = new EventEmitter<FormGroup>();
+
   get buttonLayout(): Record<string, string> {
     const gridColumnCount = this.data.actions?.length || 0;
     return {
@@ -17,12 +23,28 @@ export class DialogComponent {
     };
   }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ModalDialogConfig) {}
-  @Output() buttonPressed = new EventEmitter<DialogButton>();
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ModalDialogConfig
+  ) {
+    data?.inputs?.forEach(input => {
+      this.formControls[input.key] = new FormControl('', input.validators );
+    });
+    this.dialogForm = new FormGroup(this.formControls);
+  }
+
+  getStateDisableForm(button: DialogButtonActions): boolean {
+    if( button.key === DialogButton.CONFIRM && this.data?.inputs?.length ) {
+      return this.dialogForm.invalid;
+    }
+    return false;
+  }
 
   onButtonPressed(buttonKey: DialogButton) {
     this.buttonPressed.emit(buttonKey);
   }
 
+  onFormSubmitted() {
+    this.formSubmitted.emit(this.dialogForm);
+  }
 
 }

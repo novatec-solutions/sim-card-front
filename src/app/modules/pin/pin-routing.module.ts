@@ -7,10 +7,12 @@ const routes: Routes = [
   {
     path: 'validate',
     component: ValidatePinComponent,
+    data: { animation: 'ValidatePinComponent' }
   },
   {
     path: 'generate',
     component: GeneratePinComponent,
+    data: { animation: 'GeneratePinComponent' }
   }
 ];
 

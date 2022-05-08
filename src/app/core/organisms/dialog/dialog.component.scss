@@ -4,6 +4,7 @@
   .mat-dialog-container {
     .mat-dialog-content {
       .modal-dialog {
+
         &__content {
           &-head {
             text-align: center;
@@ -23,6 +24,28 @@
             text-align: center;
             padding: 1.4rem 0;
             font-weight: bold;
+          }
+        }
+
+        &__inputs {
+          margin: 1rem 0;
+
+          input {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border-radius: 7px;
+            border: 1px solid;
+            font-size: 14px;
+          }
+        }
+
+        &__input {
+          &--error {
+            width: 100%;
+            color: $red;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
           }
         }
       }
