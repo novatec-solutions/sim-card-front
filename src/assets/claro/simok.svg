@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="114" viewBox="0 0 118 114">
+  <g id="Grupo_13623" data-name="Grupo 13623" transform="translate(-96 -167)">
+    <g id="Íconos_-_Claro_-_SIM_card" data-name="Íconos - Claro - SIM card" transform="translate(96 167)">
+      <rect id="Rectángulo_259" data-name="Rectángulo 259" width="114" height="114" fill="none"/>
+      <circle id="Oval" cx="40.971" cy="40.971" r="40.971" transform="translate(15.456 15.745)" fill="#e8e8e9"/>
+      <path id="Shape" d="M51.571,103.143a47.421,47.421,0,0,1-9.168-.86l.573-3.152a43.728,43.728,0,0,0,8.6.86A47.65,47.65,0,0,0,85.666,85.952l2.579,2.292h0A53.3,53.3,0,0,1,51.571,103.143ZM15.185,87.958h0A51.164,51.164,0,0,1,0,51.571,47.42,47.42,0,0,1,.86,42.4l3.152.573a43.728,43.728,0,0,0-.86,8.6A48.86,48.86,0,0,0,17.19,85.666Zm87.1-27.218-3.152-.573a43.728,43.728,0,0,0,.86-8.6A48.86,48.86,0,0,0,85.952,17.477l2.292-2.292h0a52.1,52.1,0,0,1,14.9,36.387A47.42,47.42,0,0,1,102.283,60.74ZM17.477,17.477,14.9,15.185h0A52.328,52.328,0,0,1,51.571,0,47.42,47.42,0,0,1,60.74.86l-.573,3.152a43.728,43.728,0,0,0-8.6-.86A49.14,49.14,0,0,0,17.477,17.477Z" transform="translate(5.429 5.429)" fill="#e8e8e9"/>
+      <g id="Group" transform="translate(32.359 24.625)">
+        <g id="Grupo_531" data-name="Grupo 531" transform="translate(0)">
+          <path id="Path" d="M36.065,1.444H3.69A2.568,2.568,0,0,0,1.111,4.023V59.892A2.568,2.568,0,0,0,3.69,62.471H43.514a2.568,2.568,0,0,0,2.579-2.579V11.759Z" transform="translate(0.608 0.275)" fill="#ef3829"/>
+          <path id="Shape-2" data-name="Shape" d="M44.567,64.956H4.742a4.406,4.406,0,0,1-4.3-4.3V5.075a4.406,4.406,0,0,1,4.3-4.3H37.977l10.887,11.46V60.944A4.355,4.355,0,0,1,44.567,64.956ZM4.742,4.216a.76.76,0,0,0-.86.86V60.944a.76.76,0,0,0,.86.86H44.567a.76.76,0,0,0,.86-.86V13.671L36.544,4.216Z" transform="translate(-0.444 -0.778)"/>
+        </g>
+        <g id="Grupo_532" data-name="Grupo 532" transform="translate(6.876 32.089)">
+          <path id="Path-2" data-name="Path" d="M32.212,21.868H2.988a1.353,1.353,0,0,1-1.433-1.433V2.1A1.353,1.353,0,0,1,2.988.667H32.212A1.353,1.353,0,0,1,33.644,2.1V20.722A1.311,1.311,0,0,1,32.212,21.868Z" transform="translate(0.163 1.052)" fill="#fff"/>
+          <path id="Shape-3" data-name="Shape" d="M33.264,24.64H4.04A3.18,3.18,0,0,1,.889,21.488V3.152A3.18,3.18,0,0,1,4.04,0H33.264a3.18,3.18,0,0,1,3.152,3.152V21.775A3.138,3.138,0,0,1,33.264,24.64ZM4.327,21.488H32.978V3.438H4.327Z" transform="translate(-0.889)"/>
+        </g>
+        <g id="Grupo_533" data-name="Grupo 533" transform="translate(14.898 32.089)">
+          <rect id="Rectangle" width="16.044" height="21.488" transform="translate(1.719 1.719)" fill="#fff"/>
+          <path id="Shape-4" data-name="Shape" d="M20.149,24.64H.667V0H20.149ZM4.1,21.488H16.711V3.438H4.1v18.05Z" transform="translate(-0.667)"/>
+        </g>
+        <g id="Grupo_534" data-name="Grupo 534" transform="translate(8.022 43.263)">
+          <line id="Path-3" data-name="Path" x1="8.022" transform="translate(0 1.719)" fill="none"/>
+          <rect id="Rectangle-2" data-name="Rectangle" width="8.022" height="3.438" transform="translate(0)"/>
+        </g>
+        <g id="Grupo_535" data-name="Grupo 535" transform="translate(32.089 43.263)">
+          <line id="Path-4" data-name="Path" x1="8.022" transform="translate(0 1.719)" fill="none"/>
+          <rect id="Rectangle-3" data-name="Rectangle" width="8.022" height="3.438" transform="translate(0)"/>
+        </g>
+      </g>
+    </g>
+    <g id="Íconos_-_Claro_-_Correcto" data-name="Íconos - Claro - Correcto" transform="translate(151 207)">
+      <rect id="Rectángulo_289" data-name="Rectángulo 289" width="63" height="63" fill="none"/>
+      <g id="Iconos" transform="translate(4.5 4.5)">
+        <g id="Artboard" transform="translate(0 0)">
+          <g id="Elipse_9733" data-name="Elipse 9733" transform="translate(9.5 9.5)" fill="#fff" stroke="#707070" stroke-width="1">
+            <circle cx="17.5" cy="17.5" r="17.5" stroke="none"/>
+            <circle cx="17.5" cy="17.5" r="17" fill="none"/>
+          </g>
+          <g id="ico_Error" transform="translate(0)">
+            <g id="ico_bloqueo" transform="translate(0)">
+              <path id="Shape-5" data-name="Shape" d="M24.478,41.839A17.311,17.311,0,1,1,41.752,24.529,17.393,17.393,0,0,1,24.478,41.839Zm0-32.966A15.655,15.655,0,1,0,40.1,24.529,15.724,15.724,0,0,0,24.478,8.874Z" transform="translate(2.461 2.567)"/>
+              <g id="Group-2" data-name="Group">
+                <path id="Path-5" data-name="Path" d="M46.559,30.106l-1.652-.151c0-.6.15-1.2.15-1.806A25.606,25.606,0,0,0,20.722,1.656V0A27.171,27.171,0,0,1,46.709,28.149C46.709,28.751,46.559,29.5,46.559,30.106Z" transform="translate(7.269)" fill="#bcc0c4"/>
+                <path id="Path-6" data-name="Path" d="M3.128,39.147a25.481,25.481,0,0,1-3-13.7A27.08,27.08,0,0,1,16.347,1.666L17.1,3.171A25.088,25.088,0,0,0,1.776,25.449,25.019,25.019,0,0,0,4.63,38.244Z" transform="translate(-0.074 0.592)" fill="#bcc0c4"/>
+                <path id="Path-7" data-name="Path" d="M24.123,43.489H23.071A26.617,26.617,0,0,1,8.2,38.221l.9-1.355a25.768,25.768,0,0,0,13.97,4.967A25.631,25.631,0,0,0,45.454,30.092l1.5.9A27.438,27.438,0,0,1,24.123,43.489Z" transform="translate(2.816 10.701)" fill="#bcc0c4"/>
+                <path id="Path-8" data-name="Path" d="M28.936,42.651l-.9-1.505c.451-.3.751-.452,1.2-.753a20.744,20.744,0,0,0,4.807-28.9L35.4,10.438a22.471,22.471,0,0,1-5.258,31.31A8.335,8.335,0,0,1,28.936,42.651Z" transform="translate(9.87 3.712)" fill="#bcc0c4"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Group-3" data-name="Group" transform="translate(22.124 23.479)">
+        <path id="Path-9" data-name="Path" d="M3.317,7.25l3.195,3.213L14.75,1.5l2.522,2.368L6.512,15.368.8,9.618Z" transform="translate(0.55 0.191)" fill="#ef3829"/>
+        <path id="Shape-6" data-name="Shape" d="M7.23,17.581,0,10.309l3.867-3.89L7.062,9.633,15.3.5l3.867,3.89ZM2.69,10.309l4.371,4.4L16.477,4.559,15.3,3.375,7.062,12.508,3.7,9.125Z" transform="translate(0 -0.5)"/>
+      </g>
+    </g>
+  </g>
+</svg>

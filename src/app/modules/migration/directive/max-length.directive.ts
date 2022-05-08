@@ -19,5 +19,4 @@ export class MaxLengthDirective {
         event.target.value = event.target.value.slice(0, -1);
     }
   }
-  constructor(){}
 }

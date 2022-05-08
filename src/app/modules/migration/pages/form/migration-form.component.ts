@@ -47,7 +47,7 @@ export class MigrationFormComponent {
   continueToNextStep() {
     if(this.migrationForm.valid){
       const dialogInstance = this.showMessage<ModalDialogConfig>({
-        icon: "email",
+        icon: "check",
         message: `Por favor confirma que el serial que ingresaste está <span>correcto.</span>`,
         content: `${this.serialSimlastNumbers?.value}`,
         actions: [

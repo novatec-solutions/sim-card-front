@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PinService } from '../../services/pin.service';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
+import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
+import { DialogButton } from 'src/app/core/enums/dialog-button.enum';
+import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-validate-pin',
@@ -17,17 +21,68 @@ export class ValidatePinComponent implements OnInit {
   constructor(public fb: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
+    public loaderService: LoadingService,
     private PinService: PinService) {
+
     this.pinForm = this.fb.group({
       pin1: ['', [Validators.required]],
       pin2: ['', [Validators.required]],
       pin3: ['', [Validators.required]],
       pin4: ['', [Validators.required]]
-      });
+    });
   }
 
   ngOnInit(): void {
-    this.generatePin(true);
+    this.showSuccessDialog();
+  }
+
+  showSuccessDialog(){
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "simok",
+      message: `<span>La solicitud se ha realizado con éxito.</span> Espera unos minutos y una vez tu SIM Card actual quede sin servicio. Por favor inserta tu nueva`,
+      content: `SIM Card 4G.`,
+      actions: [
+        {
+          key: DialogButton.CONFIRM,
+          color: DialogButtonTheme.PRIMARY,
+          label: 'Aceptar',
+        }
+      ]
+    });
+
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CONFIRM){
+        this.router.navigate(['/migration']);
+      }
+      dialogInstance.close();
+    });
+  }
+
+  showIncorrectPinDialog(){
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "warn",
+      message: `El código de seguridad que ingresaste`,
+      content: `no es correcto.`,
+      actions: [
+        {
+          key: DialogButton.CANCEL,
+          color: DialogButtonTheme.SECONDARY,
+          label: 'Cancelar',
+        },
+        {
+          key: DialogButton.CONFIRM,
+          color: DialogButtonTheme.PRIMARY,
+          label: 'Volver a intentar',
+        },
+      ]
+    });
+
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CONFIRM){
+        this.generatePin(true);
+      }
+      dialogInstance.close();
+    });
   }
 
   generatePin(ini:boolean = false){
@@ -37,7 +92,7 @@ export class ValidatePinComponent implements OnInit {
       "contactType" : this.contact.type
     };
 
-    this.PinService.generar_pin(param).subscribe((res: { error: number; }) => {
+    this.PinService.generatePin(param).subscribe((res: { error: number; }) => {
       if(res.error == 0 && !ini){
         const data = {icon: "info", text: "Pin Generado satisfactoriamente",
         redText: "Aceptar", redClass:"btn bg-red"};
@@ -55,7 +110,7 @@ export class ValidatePinComponent implements OnInit {
       "pinNumber": pinNumber
     };
 
-    this.PinService.validar_pin(param).subscribe((res: { error: number; response: { description: any; }; }) => {
+    this.PinService.validatePin(param).subscribe((res: { error: number; response: { description: any; }; }) => {
       if(res.error > 0){
         const data = {icon: "info", text: res.response.description,
           grayText: "Finalizar", redText: "Atras", grayClass:"btn bg-dark", redClass:"btn bg-red"};
@@ -66,11 +121,10 @@ export class ValidatePinComponent implements OnInit {
     });
   }
 
-  showMessage(info: any){
-    const dialogRef = this.dialog.open(DialogComponent, {
+  showMessage<T>(info: T){
+    return this.dialog.open(DialogComponent, {
       width: '350px',
       data: info
     });
-    dialogRef.afterClosed();
   }
 }

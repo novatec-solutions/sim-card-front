@@ -10,11 +10,19 @@ import { ModalDialogConfig } from '../../interfaces/modal.config';
 })
 export class DialogComponent {
 
+  get buttonLayout(): Record<string, string> {
+    const gridColumnCount = this.data.actions?.length || 0;
+    return {
+      'grid-template-columns': `repeat(${ gridColumnCount }, 1fr)`
+    };
+  }
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: ModalDialogConfig) {}
   @Output() buttonPressed = new EventEmitter<DialogButton>();
 
   onButtonPressed(buttonKey: DialogButton) {
     this.buttonPressed.emit(buttonKey);
   }
+
 
 }

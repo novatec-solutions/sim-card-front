@@ -43,6 +43,14 @@ export class AppComponent {
     {
       name: 'check',
       path: 'assets/claro/check.svg'
+    },
+    {
+      name: 'warn',
+      path: 'assets/claro/warn.svg'
+    },
+    {
+      name: 'simok',
+      path: 'assets/claro/simok.svg'
     }
   ];
 

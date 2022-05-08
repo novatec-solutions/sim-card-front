@@ -10,10 +10,10 @@
   <form [formGroup]="pinForm" (ngSubmit)="validatePin()" novalidate class="content">
     <p class="pin-text">PIN de seguridad</p>
     <div class="input-box" max-length-group>
-      <input type="number" formControlName="pin1" class="mr20" #num1 maxlength="1"  [next]="num2" />
-      <input type="number" formControlName="pin2" class="mr20" #num2 maxlength="1" [prev]="num1" [next]="num3" />
-      <input type="number" formControlName="pin3" class="mr20" #num3 maxlength="1" [prev]="num2" [next]="num4" />
-      <input type="number" formControlName="pin4" #num4 [prev]="num3" maxlength="1" />
+      <input type="number" mask="00" formControlName="pin1" class="mr20" #num1 maxlength="1" [next]="num2" />
+      <input type="number" mask="0" formControlName="pin2" class="mr20" #num2 maxlength="1" [prev]="num1" [next]="num3" />
+      <input type="number" mask="0" formControlName="pin3" class="mr20" #num3 maxlength="1" [prev]="num2" [next]="num4" />
+      <input type="number" mask="0" formControlName="pin4" #num4 [prev]="num3" maxlength="1" />
     </div>
     <div class="text-center">
       <p class="text">¿No recibiste el PIN de seguridad?</p>
@@ -22,7 +22,11 @@
       </label>
     </div>
     <div class="mt50">
-      <app-button class="app-button" buttonClass="{{pinForm.invalid?'btn bg-light-gray':'btn bg-red'}}">Validar</app-button>
+      <app-button
+        class="app-button"
+        [disabled]="pinForm.invalid">
+          Validar
+      </app-button>
     </div>
   </form>
 </div>
