@@ -14,7 +14,7 @@ RUN npm run build --prod
 
 RUN rm -rf /usr/share/nginx/html/*
 
-RUN cp -r /app/dist /usr/share/nginx/html
+RUN cp -r /app/dist/sim-front /usr/share/nginx/html
 
 EXPOSE 8080
 
