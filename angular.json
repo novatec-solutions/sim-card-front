@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"sim-masivas-front": {
+		"sim-front": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:application": {
@@ -20,7 +20,7 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
-						"outputPath": "dist/sim-masivas-front",
+						"outputPath": "dist/sim-front",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
@@ -75,10 +75,10 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "sim-masivas-front:build:production"
+							"browserTarget": "sim-front:build:production"
 						},
 						"development": {
-							"browserTarget": "sim-masivas-front:build:development"
+							"browserTarget": "sim-front:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -86,7 +86,7 @@
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
-						"browserTarget": "sim-masivas-front:build"
+						"browserTarget": "sim-front:build"
 					}
 				},
 				"test": {
@@ -111,5 +111,5 @@
 			}
 		}
 	},
-	"defaultProject": "sim-masivas-front"
+	"defaultProject": "sim-front"
 }
