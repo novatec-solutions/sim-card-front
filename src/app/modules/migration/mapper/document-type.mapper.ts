@@ -3,10 +3,10 @@ import { PlanResource } from "../interfaces/plan-resource.model";
 
 export enum DocumentTypeNumber {
     CC = 'Cedula',
-    CE = 'Cedula Extranjera',
-    PS = 'Pasaporte',
     NI = 'NIT',
-    CD = 'Cedula Diplomatica',
+    PS = 'Pasaporte',
+    CE = 'CedulaExtranjero',
+    CD = 'CedulaDiplomatica',
 }
 
 function documentTypeKeysFin(documentType?: DocumentTypeNumber) {
