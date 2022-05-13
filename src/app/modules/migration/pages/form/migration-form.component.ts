@@ -1,13 +1,18 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { map, mergeMap, Observable, tap } from 'rxjs';
 import { REGEX_PHONE_NUMBER, REGEX_SERIAL_NUMBER } from 'src/app/core/constants/validations';
-import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
-import { DialogButtonActions, DialogInputs, ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
+import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { DialogButton } from '../../../../core/enums/dialog-button.enum';
+import { IccidStatus } from '../../enums/iccid-status.enum';
+import { ValidacionCuenta } from '../../interfaces/validacion-cuenta.model';
+import { ValidatePlanModel } from '../../interfaces/validate-plan.model';
+import { mapDocumentType } from '../../mapper/document-type.mapper';
+import { MigrationService } from '../../services/migration.service';
 import { MigrationFormConfig } from './migration-form.config';
 
 @Component({
@@ -30,6 +35,7 @@ export class MigrationFormComponent {
     public fb: FormBuilder,
     public dialog: MatDialog,
     public loaderService: LoadingService,
+    public migrationService: MigrationService,
     private router: Router) {
 
     this.migrationForm = new FormGroup({
@@ -42,25 +48,37 @@ export class MigrationFormComponent {
         Validators.pattern(REGEX_SERIAL_NUMBER)
       ]),
     });
-
-    this.showConfirmSimNumberDialog();
   }
 
-  showConfirmSimNumberDialog(){
-    const dialogInstance = this.showMessage<ModalDialogConfig>({
-      icon: "simcard",
-      message: `Esta SIM card ya tiene un número de celular, para continuar digítalo en el siguiente campo:`,
-      inputs: MigrationFormConfig.modals.confirmSimNumber.inputs,
-      actions: MigrationFormConfig.modals.confirmSimNumber.actions
-    });
+  showConfirmSimNumberDialog() : Observable<ValidatePlanModel> {
+    const {
+      currentPhoneNumber: min,
+      serialSimlastNumbers: iccid,
+    } = this.migrationForm.getRawValue();
 
-    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
-      dialogInstance.close();
-    });
+    return new Observable( observer => {
+      const dialogInstance = this.showMessage<ModalDialogConfig>({
+        icon: "simcard",
+        message: `Esta SIM card ya tiene un número de celular, para continuar digítalo en el siguiente campo:`,
+        inputs: MigrationFormConfig.modals.confirmSimNumber.inputs,
+        actions: MigrationFormConfig.modals.confirmSimNumber.actions
+      });
 
-    dialogInstance.componentInstance.formSubmitted.subscribe((form: FormGroup) => {
-      const formValue = form.getRawValue();
-      console.warn('formValue', formValue);
+      dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+        dialogInstance.close();
+        observer.error(buttonKey);
+      });
+
+      dialogInstance.componentInstance.formSubmitted.subscribe((form: FormGroup) => {
+        dialogInstance.close();
+        const formValue = form.getRawValue();
+        observer.next({
+          min_b: formValue.SimCard,
+          min,
+          iccid
+        });
+        observer.complete();
+      });
     });
   }
 
@@ -72,7 +90,6 @@ export class MigrationFormComponent {
         content: `${this.serialSimlastNumbers?.value}`,
         actions: MigrationFormConfig.modals.confirmMigration.actions
       });
-
       this.bindDialogEvents(dialogInstance);
     }
   }
@@ -80,9 +97,90 @@ export class MigrationFormComponent {
   bindDialogEvents(dialogInstance: MatDialogRef<DialogComponent, any>){
     dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
       if(buttonKey === DialogButton.CONFIRM){
-        this.router.navigate([ MigrationFormConfig.routes.pinGenerate ]);
+        this.loaderService.show();
+        const {
+          currentPhoneNumber: min,
+          serialSimlastNumbers: iccid,
+        } = this.migrationForm.getRawValue();
+
+        this.migrationService.validarCuenta({ min, iccid }).subscribe({
+          next: (response: ValidacionCuenta) => {
+            this.processValidationStates(response);
+          },
+          complete: () => {
+            this.loaderService.hide();
+          }
+        });
       }
       dialogInstance.close();
+    });
+  }
+
+  processValidationStates(response: ValidacionCuenta){
+    if( response.iccidStatus === IccidStatus.ASSIGNED ){
+      this.processValidationAssignedState();
+    } else if(
+      response.iccidStatus === IccidStatus.FREE ||
+      response.iccidStatus === IccidStatus.DEACTIVATED ){
+      this.processValidationFreeState();
+    } else {
+      this.showDialogError(response.description);
+    }
+  }
+
+  showDialogError(content: string){
+    this.loaderService.hide();
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "check",
+      message: `Error`,
+      content,
+      actions: MigrationFormConfig.modals.genericError.actions
+    });
+    this.bindGenericDialogEvents(dialogInstance);
+  }
+
+  bindGenericDialogEvents(dialogInstance: MatDialogRef<DialogComponent, any>){
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CANCEL){
+        dialogInstance.close();
+      }
+    });
+  }
+
+  processValidationFreeState(){
+    const {
+      currentPhoneNumber: min,
+    } = this.migrationForm.getRawValue();
+
+    this.migrationService.getCustomerInfoResource({ min }).pipe(
+      tap( () => this.loaderService.show() ),
+      map( item => mapDocumentType(item) ),
+      mergeMap( item => this.migrationService.accountEvaluate(item) ),
+    ).subscribe( {
+      next: accountContacts => {
+        this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
+          state: accountContacts.response
+        });
+      },
+      error: () => this.showDialogError(MigrationFormConfig.messages.generic),
+      complete: () => this.loaderService.hide()
+    });
+  }
+
+  processValidationAssignedState(){
+    this.showConfirmSimNumberDialog().pipe(
+      tap( () => this.loaderService.show() ),
+      mergeMap( item => this.migrationService.validatePlanSimResource(item) ),
+      map( item => mapDocumentType(item) ),
+      mergeMap( item => this.migrationService.accountEvaluate(item) ),
+    ).subscribe( {
+      next: accountContacts => {
+        this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
+          state: accountContacts.response
+        });
+      },
+      error: () => this.showDialogError(MigrationFormConfig.messages.generic),
+      complete: () => this.loaderService.hide()
     });
   }
 

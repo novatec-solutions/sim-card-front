@@ -5,32 +5,27 @@
         <h4>
           Para validar tu identidad tenemos que enviarte un código PIN, hemos encontrado los siguientes canales de validación anexos a tu documento. Elige uno para continuar con el proceso.
         </h4>
-        <div class="choose-line__list">
-          <label class="choose-line__item" [ngClass]="{ 'active': chooseLineItem?.value === '0' }" for="choose-line__item_0">
-            <input type="radio" id="choose-line__item_0" formControlName="chooseLineItem" value="0">
+        <div
+          class="choose-line__list"
+          [ngStyle]="{
+            'grid-template-columns' : 'repeat(' + templateColumns +', 1fr)'
+          }">
+          <label
+              *ngFor="let contact of contactInfo; index as i"
+              class="choose-line__item"
+              [ngClass]="{ 'active': chooseLineItem?.value === contact }"
+              [attr.for]="['choose-line__item_' + i]">
+            <input
+              type="radio"
+              [attr.id]="['choose-line__item_' + i]"
+              formControlName="chooseLineItem"
+              [value]="contact"
+            >
             <div class="choose-line__item-icon">
-              <mat-icon svgIcon="phone"></mat-icon>
+              <mat-icon [svgIcon]="getSelectedIcon(contact.type)"></mat-icon>
             </div>
             <div class="choose-line__item-content">
-              ***********002
-            </div>
-          </label>
-          <label class="choose-line__item" [ngClass]="{ 'active': chooseLineItem?.value === '1' }" for="choose-line__item_1">
-            <input type="radio" id="choose-line__item_1" formControlName="chooseLineItem" value="1">
-            <div class="choose-line__item-icon">
-              <mat-icon svgIcon="email"></mat-icon>
-            </div>
-            <div class="choose-line__item-content">
-              ***********002
-            </div>
-          </label>
-          <label class="choose-line__item" [ngClass]="{ 'active': chooseLineItem?.value === '2' }" for="choose-line__item_2">
-            <input type="radio" id="choose-line__item_2" formControlName="chooseLineItem" value="2">
-            <div class="choose-line__item-icon">
-              <mat-icon svgIcon="phone"></mat-icon>
-            </div>
-            <div class="choose-line__item-content">
-              ***********002
+              {{ maskLine(contact.contact, contact.type) }}
             </div>
           </label>
         </div>
