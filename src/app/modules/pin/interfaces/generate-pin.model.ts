@@ -3,4 +3,6 @@ export interface GenerarPin {
   contactData : string;
   contactType : string;
   mask?: string;
+  min?: string;
+  iccid?: string;
 }

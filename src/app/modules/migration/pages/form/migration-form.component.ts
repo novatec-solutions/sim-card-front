@@ -151,6 +151,7 @@ export class MigrationFormComponent {
     let documentData = "";
     const {
       currentPhoneNumber: min,
+      serialSimlastNumbers: iccid,
     } = this.migrationForm.getRawValue();
 
     this.migrationService.getCustomerInfoResource({ min }).pipe(
@@ -163,7 +164,9 @@ export class MigrationFormComponent {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
           state: {
             info: accountContacts.response,
-            documentData
+            documentData,
+            min,
+            iccid
           }
         });
       },
@@ -174,6 +177,11 @@ export class MigrationFormComponent {
 
   processValidationAssignedState(){
     let documentData = "";
+    const {
+      currentPhoneNumber: min,
+      serialSimlastNumbers: iccid,
+    } = this.migrationForm.getRawValue();
+
     this.showConfirmSimNumberDialog().pipe(
       tap( () => this.loaderService.show() ),
       mergeMap( item => this.migrationService.validatePlanSimResource(item) ),
@@ -185,7 +193,9 @@ export class MigrationFormComponent {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
           state: {
             info: accountContacts.response,
-            documentData
+            documentData,
+            min,
+            iccid
           }
         });
       },

@@ -7,6 +7,7 @@ import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
 import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { MigrationService } from 'src/app/modules/migration/services/migration.service';
 import { GeneratePinError } from '../../interfaces/generate-pin-response';
 import { GenerarPin } from '../../interfaces/generate-pin.model';
 import { ValidatePinStatus } from '../../interfaces/validate-pin.model';
@@ -26,6 +27,7 @@ export class ValidatePinComponent {
     private router: Router,
     public dialog: MatDialog,
     public loaderService: LoadingService,
+    public migrationService: MigrationService,
     private PinService: PinService) {
 
     this.contactInfo = this.router.getCurrentNavigation()?.extras.state as GenerarPin;
@@ -109,6 +111,29 @@ export class ValidatePinComponent {
     });
   }
 
+  migrate(){
+    this.loaderService.show();
+    const { min, iccid } = this.contactInfo;
+    const data = {
+      min,
+      iccidNew: iccid,
+      codeDesactivation: "381",
+      codeChangeIccid: 9,
+      descriptionChangeIccid: "Repo Voluntaria (Sin Costo)",
+    };
+    this.migrationService.migrate(data).subscribe({
+      next: response => {
+        console.warn(response);
+        this.showSuccessDialog();
+      },
+      error: () => {
+        this.loaderService.hide();
+        this.showDialogError(ValidatePinConfig.messages.generic);
+      },
+      complete: () => this.loaderService.hide()
+    })
+  }
+
   showSuccessGeneratePinDialog(){
     const dialogInstance = this.showMessage<ModalDialogConfig>({
       icon: "simok",
@@ -125,6 +150,7 @@ export class ValidatePinComponent {
     });
 
     dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      this.pinForm.reset();
       dialogInstance.close();
     });
   }
@@ -143,7 +169,7 @@ export class ValidatePinComponent {
     this.PinService.validatePin(param).subscribe({
       next: response => {
         if(response.error === ValidatePinStatus.SUCCESS){
-          this.showSuccessDialog();
+          this.migrate();
           return;
         }
         this.showIncorrectPinDialog();

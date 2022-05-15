@@ -13,4 +13,6 @@ export interface AccountContact {
 export interface AccountContactExtras {
   info: Array<AccountContactInfo>;
   documentData: string;
+  min?: string;
+  iccid?: string;
 }

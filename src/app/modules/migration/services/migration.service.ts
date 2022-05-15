@@ -7,6 +7,8 @@ import { LogType } from '../enums/log-type.enum';
 import { AccountContact } from '../interfaces/account-contact.model';
 import { AccountEvaluate } from '../interfaces/account-evaluate.model';
 import { CustomerInfo } from '../interfaces/customer-info.model';
+import { MigrateAccount } from '../interfaces/migrate.model';
+import { MigrationData } from '../interfaces/migration-data.model';
 import { PlanResource } from '../interfaces/plan-resource.model';
 import { ValidacionCuenta } from '../interfaces/validacion-cuenta.model';
 import { ValidateInfo } from '../interfaces/validate-info.model';
@@ -46,6 +48,12 @@ export class MigrationService {
   accountEvaluate( data: AccountEvaluate ): Observable<AccountContact> {
     const url = this.baseUrl + "cuenta/contactos";
     return this.http.post<AccountContact>(url, data);
+  }
+
+  @SimpleLog(LogType.VERBOSE)
+  migrate( data: MigrateAccount ): Observable<MigrationData> {
+    const url = this.baseUrl + "cuenta/migrar";
+    return this.http.post<MigrationData>(url, data);
   }
 
 }
