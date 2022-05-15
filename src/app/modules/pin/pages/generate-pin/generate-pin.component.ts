@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DialogButton } from 'src/app/core/enums/dialog-button.enum';
+import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { TypeContacts } from 'src/app/modules/migration/enums/contact-type.enum';
@@ -66,10 +68,19 @@ export class GeneratePinComponent {
     this.PinService.generatePin(data).subscribe({
       next: (response) => {
         if(response.error === GeneratePinError.SUCCESS){
-          this.router.navigate(['/pin/validate']);
+          this.router.navigate(['/pin/validate'], {
+            state: {
+              ...data,
+              mask: this.maskLine(contact, type)
+            }
+          });
           return;
         }
-        this.showMessage(GeneratePinConfig.messages.generatePinError);
+        this.showDialogError(GeneratePinConfig.messages.generic)
+      },
+      error : () => {
+        this.loaderService.hide();
+        this.showDialogError(GeneratePinConfig.messages.generic)
       },
       complete: () => this.loaderService.hide()
     });
@@ -88,6 +99,25 @@ export class GeneratePinComponent {
      return this.maskEmail(line);
     }
     return line[0] + "*".repeat(line.length - 2) + line.slice(-1);
+  }
+
+  showDialogError(content: string){
+    this.loaderService.hide();
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "check",
+      message: `Error`,
+      content,
+      actions: GeneratePinConfig.modals.genericError.actions
+    });
+    this.bindGenericDialogEvents(dialogInstance);
+  }
+
+  bindGenericDialogEvents(dialogInstance: MatDialogRef<DialogComponent, any>){
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CANCEL){
+        dialogInstance.close();
+      }
+    });
   }
 
   showMessage<T>(info: T){

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { LogType } from '../../migration/enums/log-type.enum';
 import { GeneratePinResponse } from '../interfaces/generate-pin-response';
 import { GenerarPin } from '../interfaces/generate-pin.model';
+import { ValidatePin, ValidatePinResponse } from '../interfaces/validate-pin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class PinService {
   }
 
   @SimpleLog(LogType.VERBOSE)
-  validatePin(data:any): Observable<any> {
+  validatePin(data:ValidatePin): Observable<ValidatePinResponse> {
     const url = this.baseUrl + "pin/validar";
     return this.http.post<any>(url, data);
   }

@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogButton } from 'src/app/core/enums/dialog-button.enum';
 import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
 import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { GeneratePinError } from '../../interfaces/generate-pin-response';
+import { GenerarPin } from '../../interfaces/generate-pin.model';
+import { ValidatePinStatus } from '../../interfaces/validate-pin.model';
 import { PinService } from '../../services/pin.service';
+import { ValidatePinConfig } from './validate-pin.config';
 
 @Component({
   selector: 'app-validate-pin',
@@ -16,13 +20,15 @@ import { PinService } from '../../services/pin.service';
 })
 export class ValidatePinComponent {
   pinForm!: FormGroup;
-  contact = JSON.parse(localStorage.getItem('contact') as any);
+  public contactInfo!: GenerarPin;
 
   constructor(public fb: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
     public loaderService: LoadingService,
     private PinService: PinService) {
+
+    this.contactInfo = this.router.getCurrentNavigation()?.extras.state as GenerarPin;
 
     this.pinForm = this.fb.group({
       pin1: ['', [Validators.required]],
@@ -59,7 +65,7 @@ export class ValidatePinComponent {
     const dialogInstance = this.showMessage<ModalDialogConfig>({
       icon: "warn",
       message: `El código de seguridad que ingresaste`,
-      content: `no es correcto.`,
+      content: `no es correcto, intenta nuevamente`,
       actions: [
         {
           key: DialogButton.CANCEL,
@@ -77,48 +83,95 @@ export class ValidatePinComponent {
     });
 
     dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
-      if(buttonKey === DialogButton.CONFIRM){
-        this.generatePin(true);
-      }
       dialogInstance.close();
     });
   }
 
-  generatePin(ini:boolean = false){
-    const param = {
-      documentClient : "",
-      contactData : this.contact.contact,
-      contactType : this.contact.type
-    };
+  generatePin(){
+    this.loaderService.show();
 
-    this.PinService.generatePin(param).subscribe((res: { error: number; }) => {
-      if(res.error == 0 && !ini){
-        const data = {icon: "info", text: "Pin Generado satisfactoriamente",
-        redText: "Aceptar", redClass:"btn bg-red"};
-        this.showMessage(data);
-      }
+    const param = {
+      ...this.contactInfo
+    };
+    this.PinService.generatePin(param).subscribe({
+      next: response => {
+        if(response.error === GeneratePinError.SUCCESS){
+          this.showSuccessGeneratePinDialog();
+          return;
+        }
+        this.showDialogError(ValidatePinConfig.messages.generic);
+      },
+      error: () => {
+        this.loaderService.hide();
+        this.showDialogError(ValidatePinConfig.messages.generic);
+      },
+      complete: () => this.loaderService.hide()
+    });
+  }
+
+  showSuccessGeneratePinDialog(){
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "simok",
+      message: `<span>Pin Generado satisfactoriamente</span>`,
+      content: `Pin Generado`,
+      actions: [
+        {
+          key: DialogButton.CONFIRM,
+          color: DialogButtonTheme.PRIMARY,
+          label: 'Aceptar',
+          type: 'button'
+        }
+      ]
+    });
+
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      dialogInstance.close();
     });
   }
 
   validatePin(){
-    this.showSuccessDialog();
-    return;
-
-    const form = this.pinForm.value;
-    const pinNumber = `${form.pin1}${form.pin2}${form.pin3}${form.pin4}`;
+    this.loaderService.show();
+    const form = this.pinForm.getRawValue();
+    const pinNumber = Object.values(form).join('');
+    const { documentClient } = this.contactInfo;
 
     const param = {
-      "documentClient": localStorage.getItem('document'),
-      "pinNumber": pinNumber
+      documentClient,
+      pinNumber
     };
 
-    this.PinService.validatePin(param).subscribe((res: { error: number; response: { description: any; }; }) => {
-      if(res.error > 0){
-        const data = {icon: "info", text: res.response.description,
-          grayText: "Finalizar", redText: "Atras", grayClass:"btn bg-dark", redClass:"btn bg-red"};
-        this.showMessage(data);
-      }else{
-        this.router.navigate(['/cuenta']);
+    this.PinService.validatePin(param).subscribe({
+      next: response => {
+        if(response.error === ValidatePinStatus.SUCCESS){
+          this.showSuccessDialog();
+          return;
+        }
+        this.showIncorrectPinDialog();
+      },
+      error : () => {
+        this.loaderService.hide();
+        this.showIncorrectPinDialog();
+      },
+      complete: () => this.loaderService.hide()
+    });
+
+  }
+
+  showDialogError(content: string){
+    this.loaderService.hide();
+    const dialogInstance = this.showMessage<ModalDialogConfig>({
+      icon: "check",
+      message: `Error`,
+      content,
+      actions: ValidatePinConfig.modals.genericError.actions
+    });
+    this.bindGenericDialogEvents(dialogInstance);
+  }
+
+  bindGenericDialogEvents(dialogInstance: MatDialogRef<DialogComponent, any>){
+    dialogInstance.componentInstance.buttonPressed.subscribe((buttonKey: DialogButton) => {
+      if(buttonKey === DialogButton.CANCEL){
+        dialogInstance.close();
       }
     });
   }

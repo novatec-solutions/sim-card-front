@@ -2,7 +2,7 @@ import { DialogButton } from "src/app/core/enums/dialog-button.enum";
 import { DialogButtonTheme } from "src/app/core/enums/dialog-theme.enum";
 import { DialogButtonActions } from "src/app/core/interfaces/modal.config";
 
-export const GeneratePinConfig = Object.freeze({
+export const ValidatePinConfig = Object.freeze({
   modals: {
     genericError: {
       actions: [
