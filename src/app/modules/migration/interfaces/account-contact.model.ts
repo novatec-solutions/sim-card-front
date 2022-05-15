@@ -9,3 +9,8 @@ export interface AccountContact {
   error: number;
   response: Array<AccountContactInfo>
 }
+
+export interface AccountContactExtras {
+  info: Array<AccountContactInfo>;
+  documentData: string;
+}

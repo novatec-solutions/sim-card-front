@@ -11,7 +11,7 @@
             'grid-template-columns' : 'repeat(' + templateColumns +', 1fr)'
           }">
           <label
-              *ngFor="let contact of contactInfo; index as i"
+              *ngFor="let contact of contactInfo?.info; index as i"
               class="choose-line__item"
               [ngClass]="{ 'active': chooseLineItem?.value === contact }"
               [attr.for]="['choose-line__item_' + i]">

@@ -148,6 +148,7 @@ export class MigrationFormComponent {
   }
 
   processValidationFreeState(){
+    let documentData = "";
     const {
       currentPhoneNumber: min,
     } = this.migrationForm.getRawValue();
@@ -155,11 +156,15 @@ export class MigrationFormComponent {
     this.migrationService.getCustomerInfoResource({ min }).pipe(
       tap( () => this.loaderService.show() ),
       map( item => mapDocumentType(item) ),
+      tap( ({ documentClient }) => documentData = documentClient),
       mergeMap( item => this.migrationService.accountEvaluate(item) ),
     ).subscribe( {
       next: accountContacts => {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
-          state: accountContacts.response
+          state: {
+            info: accountContacts.response,
+            documentData
+          }
         });
       },
       error: () => this.showDialogError(MigrationFormConfig.messages.generic),
@@ -168,15 +173,20 @@ export class MigrationFormComponent {
   }
 
   processValidationAssignedState(){
+    let documentData = "";
     this.showConfirmSimNumberDialog().pipe(
       tap( () => this.loaderService.show() ),
       mergeMap( item => this.migrationService.validatePlanSimResource(item) ),
       map( item => mapDocumentType(item) ),
+      tap( ({ documentClient }) => documentData = documentClient),
       mergeMap( item => this.migrationService.accountEvaluate(item) ),
     ).subscribe( {
       next: accountContacts => {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
-          state: accountContacts.response
+          state: {
+            info: accountContacts.response,
+            documentData
+          }
         });
       },
       error: () => this.showDialogError(MigrationFormConfig.messages.generic),

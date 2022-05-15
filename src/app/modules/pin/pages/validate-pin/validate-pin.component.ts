@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PinService } from '../../services/pin.service';
-import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
-import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
 import { DialogButton } from 'src/app/core/enums/dialog-button.enum';
 import { DialogButtonTheme } from 'src/app/core/enums/dialog-theme.enum';
+import { ModalDialogConfig } from 'src/app/core/interfaces/modal.config';
+import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { PinService } from '../../services/pin.service';
 
 @Component({
   selector: 'app-validate-pin',
@@ -86,9 +86,9 @@ export class ValidatePinComponent {
 
   generatePin(ini:boolean = false){
     const param = {
-      "documentClient" : localStorage.getItem('document'),
-      "contactData" : this.contact.contact,
-      "contactType" : this.contact.type
+      documentClient : "",
+      contactData : this.contact.contact,
+      contactType : this.contact.type
     };
 
     this.PinService.generatePin(param).subscribe((res: { error: number; }) => {

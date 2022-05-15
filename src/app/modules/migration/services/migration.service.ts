@@ -17,33 +17,34 @@ import { ValidatePlanModel } from '../interfaces/validate-plan.model';
 })
 export class MigrationService {
   public baseUrl!: string;
+  public baseUrlMock!: string;
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.url;
+    this.baseUrlMock = environment.mockUrl;
   }
 
   @SimpleLog(LogType.VERBOSE)
   validarCuenta( data: ValidateInfo ): Observable<ValidacionCuenta> {
-    const url = this.baseUrl + "cuenta/informacion";
+    const url = this.baseUrlMock + "cuenta/informacion";
     return this.http.post<ValidacionCuenta>(url, data);
   }
 
   @SimpleLog(LogType.VERBOSE)
   validatePlanSimResource( data: ValidatePlanModel ): Observable<PlanResource> {
-    const url = this.baseUrl + "/validar/plan";
+    const url = this.baseUrlMock + "validar/plan";
     return this.http.post<PlanResource>(url, data);
   }
 
   @SimpleLog(LogType.VERBOSE)
   getCustomerInfoResource( data: CustomerInfo ): Observable<PlanResource> {
-    const url = this.baseUrl + "/validar/linea";
+    const url = this.baseUrlMock + "validar/linea";
     return this.http.post<PlanResource>(url, data);
   }
 
   @SimpleLog(LogType.VERBOSE)
   accountEvaluate( data: AccountEvaluate ): Observable<AccountContact> {
-    //const url = this.baseUrl + "/cuenta/contactos";
-    const url = "http://simcard-back-miclaro-dev-novatec.104.209.147.150.nip.io/cuenta/contactos";
+    const url = this.baseUrl + "cuenta/contactos";
     return this.http.post<AccountContact>(url, data);
   }
 
