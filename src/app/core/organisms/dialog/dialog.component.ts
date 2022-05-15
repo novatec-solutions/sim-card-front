@@ -40,6 +40,9 @@ export class DialogComponent {
   }
 
   onButtonPressed(buttonKey: DialogButton) {
+    if( this.data?.inputs?.length && buttonKey === DialogButton.CONFIRM ) {
+      return;
+    }
     this.buttonPressed.emit(buttonKey);
   }
 

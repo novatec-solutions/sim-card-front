@@ -50,7 +50,21 @@ export const MigrationFormConfig = Object.freeze({
           type: "button"
         },
       ] as DialogButtonActions[]
+    },
+    genericError: {
+      actions: [
+        {
+          key: DialogButton.CANCEL,
+          color: DialogButtonTheme.SECONDARY,
+          label: 'Aceptar',
+          type: "button"
+        },
+      ] as DialogButtonActions[]
     }
+  },
+  messages: {
+    IccdStatusError : "El serial ingresa presenta un estado que no permite migrar",
+    generic: "Ha ocurrido un error al validar la cuenta, por favor intenta nuevamente."
   },
   routes: {
     pinGenerate: '/pin/generate',
