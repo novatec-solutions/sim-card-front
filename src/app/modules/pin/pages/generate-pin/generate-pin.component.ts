@@ -58,12 +58,9 @@ export class GeneratePinComponent {
     const formData = this.pinValidationForm.getRawValue();
     const { chooseLineItem: { contact, type } } = formData;
     const data = {
-      // documentClient : this.contactInfo.documentData,
-      // contactData : contact,
-      // contactType : type
-      documentClient : "CC-1053826485",
-      contactData : "heanfig@gmail.com",
-      contactType : "1"
+      documentClient : this.contactInfo.documentData,
+      contactData : contact,
+      contactType : type
     }
     this.PinService.generatePin(data).subscribe({
       next: (response) => {

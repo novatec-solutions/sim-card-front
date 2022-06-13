@@ -23,24 +23,23 @@ export class MigrationService {
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.url;
-    this.baseUrlMock = environment.mockUrl;
   }
 
   @SimpleLog(LogType.VERBOSE)
   validarCuenta( data: ValidateInfo ): Observable<ValidacionCuenta> {
-    const url = this.baseUrlMock + "cuenta/informacion";
+    const url = this.baseUrl + "validar/informacion";
     return this.http.post<ValidacionCuenta>(url, data);
   }
 
   @SimpleLog(LogType.VERBOSE)
   validatePlanSimResource( data: ValidatePlanModel ): Observable<PlanResource> {
-    const url = this.baseUrlMock + "validar/plan";
+    const url = this.baseUrl + "validar/plan";
     return this.http.post<PlanResource>(url, data);
   }
 
   @SimpleLog(LogType.VERBOSE)
   getCustomerInfoResource( data: CustomerInfo ): Observable<PlanResource> {
-    const url = this.baseUrlMock + "validar/linea";
+    const url = this.baseUrl + "validar/linea";
     return this.http.post<PlanResource>(url, data);
   }
 
