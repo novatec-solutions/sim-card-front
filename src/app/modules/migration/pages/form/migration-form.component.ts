@@ -9,7 +9,7 @@ import { DialogComponent } from 'src/app/core/organisms/dialog/dialog.component'
 import { LoadingService } from 'src/app/core/services/loading.service';
 import { DialogButton } from '../../../../core/enums/dialog-button.enum';
 import { IccidStatus } from '../../enums/iccid-status.enum';
-import { ValidacionCuenta } from '../../interfaces/validacion-cuenta.model';
+import { ValidacionCuenta, ValidacionCuentaResponse } from '../../interfaces/validacion-cuenta.model';
 import { ValidatePlanModel } from '../../interfaces/validate-plan.model';
 import { mapDocumentType } from '../../mapper/document-type.mapper';
 import { MigrationService } from '../../services/migration.service';
@@ -113,8 +113,8 @@ export class MigrationFormComponent {
         } = this.formRawValue;
 
         this.migrationService.validarCuenta({ min, iccid }).subscribe({
-          next: (response: ValidacionCuenta) => {
-            this.processValidationStates(response);
+          next: (res: ValidacionCuentaResponse) => {
+            this.processValidationStates(res.response);
           },
           complete: () => {
             this.loaderService.hide();
@@ -126,19 +126,19 @@ export class MigrationFormComponent {
   }
 
   processValidationStates(response: ValidacionCuenta){
-    if( response.response.iccidStatus === IccidStatus.ASSIGNED || 
-      response.response.iccidStatus === IccidStatus.RESERVED){
+    if( response.iccidStatus === IccidStatus.ASSIGNED || 
+      response.iccidStatus === IccidStatus.RESERVED){
       this.processValidationAssignedState();
     } else if(
-      response.response.iccidStatus === IccidStatus.FREE ||
-      response.response.iccidStatus === IccidStatus.DEACTIVATED ||
-      response.response.iccidStatus === IccidStatus.LIBRE ){
+      response.iccidStatus === IccidStatus.FREE ||
+      response.iccidStatus === IccidStatus.DEACTIVATED ||
+      response.iccidStatus === IccidStatus.LIBRE ){
       this.processValidationFreeState();
     } else {
-      if(response.response.code == '-30'){
-        response.response.description = "El numero de celular ingresado no aplica para realizar el cambio de sim card"  
+      if(response?.code === '-30'){
+        response.description = MigrationFormConfig.messages.errorChange; 
       }
-      this.showDialogError(response.response.description);
+      this.showDialogError(response.description);
     }
   }
 
@@ -170,6 +170,12 @@ export class MigrationFormComponent {
 
     this.migrationService.getCustomerInfoResource({ min }).pipe(
       tap( () => this.loaderService.show() ),
+      map(({ response })=> {
+        if(response?.code === "-10"){
+          throw new Error('Valid token not returned');
+        }
+        return response
+      }),
       map( item => mapDocumentType(item) ),
       tap( ({ documentClient }) => documentData = documentClient),
       mergeMap( item => this.migrationService.accountEvaluate(item) ),
@@ -184,7 +190,7 @@ export class MigrationFormComponent {
           }
         });
       },
-      error: () => this.showDialogError(MigrationFormConfig.messages.generic),
+      error: () => this.showDialogError(MigrationFormConfig.messages.errorChange),
       complete: () => this.loaderService.hide()
     });
   }
@@ -199,6 +205,12 @@ export class MigrationFormComponent {
     this.showConfirmSimNumberDialog().pipe(
       tap( () => this.loaderService.show() ),
       mergeMap( item => this.migrationService.validatePlanSimResource(item) ),
+      map(({ response })=> {
+        if(response?.code === "-3" || response?.code === "-7"){
+          throw new Error('Valid token not returned');
+        }
+        return response
+      }),
       map( item => mapDocumentType(item) ),
       tap( ({ documentClient }) => documentData = documentClient),
       mergeMap( item => this.migrationService.accountEvaluate(item) ),
@@ -210,10 +222,10 @@ export class MigrationFormComponent {
             documentData,
             min,
             iccid
-          }
+          } 
         });
       },
-      error: () => this.showDialogError(MigrationFormConfig.messages.generic),
+      error: () => this.showDialogError(MigrationFormConfig.messages.errorChange),
       complete: () => this.loaderService.hide()
     });
   }
