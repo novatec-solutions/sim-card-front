@@ -126,19 +126,19 @@ export class MigrationFormComponent {
   }
 
   processValidationStates(response: ValidacionCuenta){
-    if( response.iccidStatus === IccidStatus.ASSIGNED || 
-      response.iccidStatus === IccidStatus.RESERVED){
+    if( response.response.iccidStatus === IccidStatus.ASSIGNED || 
+      response.response.iccidStatus === IccidStatus.RESERVED){
       this.processValidationAssignedState();
     } else if(
-      response.iccidStatus === IccidStatus.FREE ||
-      response.iccidStatus === IccidStatus.DEACTIVATED ||
-      response.iccidStatus === IccidStatus.LIBRE ){
+      response.response.iccidStatus === IccidStatus.FREE ||
+      response.response.iccidStatus === IccidStatus.DEACTIVATED ||
+      response.response.iccidStatus === IccidStatus.LIBRE ){
       this.processValidationFreeState();
     } else {
-      if(response.code == '-30'){
-        response.description = "El numero de celular ingresado no aplica para realizar el cambio de sim card"  
+      if(response.response.code == '-30'){
+        response.response.description = "El numero de celular ingresado no aplica para realizar el cambio de sim card"  
       }
-      this.showDialogError(response.description);
+      this.showDialogError(response.response.description);
     }
   }
 
