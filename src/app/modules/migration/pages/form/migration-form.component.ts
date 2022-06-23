@@ -22,6 +22,7 @@ import { MigrationFormConfig } from './migration-form.config';
 })
 export class MigrationFormComponent {
   migrationForm!: FormGroup;
+  readonly PREFIX_ICCID = '57101';
 
   get currentPhoneNumber() {
     return this.migrationForm.get("currentPhoneNumber");
@@ -29,6 +30,14 @@ export class MigrationFormComponent {
 
   get serialSimlastNumbers() {
     return this.migrationForm.get("serialSimlastNumbers");
+  }
+
+  get formRawValue() {
+    const rawJson = this.migrationForm.getRawValue();
+    return {
+      ...rawJson,
+      serialSimlastNumbers: `${this.PREFIX_ICCID}${rawJson.serialSimlastNumbers}`
+    }
   }
 
   constructor(
@@ -54,7 +63,7 @@ export class MigrationFormComponent {
     const {
       currentPhoneNumber: min,
       serialSimlastNumbers: iccid,
-    } = this.migrationForm.getRawValue();
+    } = this.formRawValue;
 
     return new Observable( observer => {
       const dialogInstance = this.showMessage<ModalDialogConfig>({
@@ -73,8 +82,8 @@ export class MigrationFormComponent {
         dialogInstance.close();
         const formValue = form.getRawValue();
         observer.next({
-          min_b: formValue.SimCard,
           min,
+          min_b: formValue.SimCard,
           iccid
         });
         observer.complete();
@@ -87,7 +96,7 @@ export class MigrationFormComponent {
       const dialogInstance = this.showMessage<ModalDialogConfig>({
         icon: "check",
         message: `Por favor confirma que el serial que ingresaste está <span>correcto.</span>`,
-        content: `${this.serialSimlastNumbers?.value}`,
+        content: `57101${this.serialSimlastNumbers?.value}`,
         actions: MigrationFormConfig.modals.confirmMigration.actions
       });
       this.bindDialogEvents(dialogInstance);
@@ -101,7 +110,7 @@ export class MigrationFormComponent {
         const {
           currentPhoneNumber: min,
           serialSimlastNumbers: iccid,
-        } = this.migrationForm.getRawValue();
+        } = this.formRawValue;
 
         this.migrationService.validarCuenta({ min, iccid }).subscribe({
           next: (response: ValidacionCuenta) => {
@@ -117,13 +126,18 @@ export class MigrationFormComponent {
   }
 
   processValidationStates(response: ValidacionCuenta){
-    if( response.iccidStatus === IccidStatus.ASSIGNED ){
+    if( response.iccidStatus === IccidStatus.ASSIGNED || 
+      response.iccidStatus === IccidStatus.RESERVED){
       this.processValidationAssignedState();
     } else if(
       response.iccidStatus === IccidStatus.FREE ||
-      response.iccidStatus === IccidStatus.DEACTIVATED ){
+      response.iccidStatus === IccidStatus.DEACTIVATED ||
+      response.iccidStatus === IccidStatus.LIBRE ){
       this.processValidationFreeState();
     } else {
+      if(response.code == '-30'){
+        response.description = "El numero de celular ingresado no aplica para realizar el cambio de sim card"  
+      }
       this.showDialogError(response.description);
     }
   }
@@ -131,7 +145,7 @@ export class MigrationFormComponent {
   showDialogError(content: string){
     this.loaderService.hide();
     const dialogInstance = this.showMessage<ModalDialogConfig>({
-      icon: "check",
+      icon: "warn",
       message: `Error`,
       content,
       actions: MigrationFormConfig.modals.genericError.actions
@@ -152,7 +166,7 @@ export class MigrationFormComponent {
     const {
       currentPhoneNumber: min,
       serialSimlastNumbers: iccid,
-    } = this.migrationForm.getRawValue();
+    } = this.formRawValue;
 
     this.migrationService.getCustomerInfoResource({ min }).pipe(
       tap( () => this.loaderService.show() ),
@@ -163,7 +177,7 @@ export class MigrationFormComponent {
       next: accountContacts => {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
           state: {
-            info: accountContacts.response,
+            info: accountContacts.response.data,
             documentData,
             min,
             iccid
@@ -180,7 +194,7 @@ export class MigrationFormComponent {
     const {
       currentPhoneNumber: min,
       serialSimlastNumbers: iccid,
-    } = this.migrationForm.getRawValue();
+    } = this.formRawValue;
 
     this.showConfirmSimNumberDialog().pipe(
       tap( () => this.loaderService.show() ),
@@ -192,7 +206,7 @@ export class MigrationFormComponent {
       next: accountContacts => {
         this.router.navigate([ MigrationFormConfig.routes.pinGenerate ], {
           state: {
-            info: accountContacts.response,
+            info: accountContacts.response.data,
             documentData,
             min,
             iccid

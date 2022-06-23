@@ -7,7 +7,9 @@ export interface AccountContactInfo {
 
 export interface AccountContact {
   error: number;
-  response: Array<AccountContactInfo>
+  response: {
+    data: Array<AccountContactInfo>
+  }
 }
 
 export interface AccountContactExtras {

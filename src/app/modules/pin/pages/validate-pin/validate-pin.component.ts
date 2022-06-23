@@ -116,10 +116,7 @@ export class ValidatePinComponent {
     const { min, iccid } = this.contactInfo;
     const data = {
       min,
-      iccidNew: iccid,
-      codeDesactivation: "381",
-      codeChangeIccid: 9,
-      descriptionChangeIccid: "Repo Voluntaria (Sin Costo)",
+      iccidNew: iccid
     };
     this.migrationService.migrate(data).subscribe({
       next: response => {
