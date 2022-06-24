@@ -6,8 +6,11 @@ export interface AccountContactInfo {
 }
 
 export interface AccountContact {
-  error: number;
-  response: Array<AccountContactInfo>
+  error?: number;
+  response: {
+    description: string,
+    data: Array<AccountContactInfo>
+  }
 }
 
 export interface AccountContactExtras {

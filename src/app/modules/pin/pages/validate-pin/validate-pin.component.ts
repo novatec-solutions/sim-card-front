@@ -116,19 +116,19 @@ export class ValidatePinComponent {
     const { min, iccid } = this.contactInfo;
     const data = {
       min,
-      iccidNew: iccid,
-      codeDesactivation: "381",
-      codeChangeIccid: 9,
-      descriptionChangeIccid: "Repo Voluntaria (Sin Costo)",
+      iccidNew: iccid
     };
     this.migrationService.migrate(data).subscribe({
-      next: response => {
-        console.warn(response);
+      next: res => {
+        console.warn(res.response);
+        if(res.response.code === "-12" ){
+          throw new Error('Valid token not returned');
+        }
         this.showSuccessDialog();
       },
       error: () => {
         this.loaderService.hide();
-        this.showDialogError(ValidatePinConfig.messages.generic);
+        this.showDialogError(ValidatePinConfig.messages.iccidChangeError);
       },
       complete: () => this.loaderService.hide()
     })
